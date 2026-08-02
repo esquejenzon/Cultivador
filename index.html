@@ -1,34 +1,110 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Viaje Cannábico - Portfolio Alternativo</title>
+    <title>Gran Rifa Esquejenzon - Sorteos de Accesorios Cannábicos & Ruleta 1-50</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cannabis: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                            950: '#052e16',
+                            gold: '#fbbf24',
+                            neon: '#00ff66'
+                        }
+                    },
+                    animation: {
+                        'bubble-float': 'bubbleFloat 6s ease-in-out infinite',
+                        'bubble-float-delayed': 'bubbleFloat 7s ease-in-out 3s infinite',
+                        'glow-pulse': 'glowPulse 3s ease-in-out infinite',
+                        'spin-slow': 'spin 20s linear infinite',
+                        'particle-rise': 'particleRise 8s linear infinite'
+                    },
+                    keyframes: {
+                        bubbleFloat: {
+                            '0%, 100%': { transform: 'translateY(0px) rotate(0deg) scale(1)' },
+                            '50%': { transform: 'translateY(-18px) rotate(1.5deg) scale(1.02)' }
+                        },
+                        glowPulse: {
+                            '0%, 100%': { opacity: '0.4', filter: 'drop-shadow(0 0 15px rgba(0,255,102,0.4))' },
+                            '50%': { opacity: '0.8', filter: 'drop-shadow(0 0 25px rgba(0,255,102,0.8))' }
+                        },
+                        particleRise: {
+                            '0%': { transform: 'translateY(100vh) scale(0)', opacity: '0' },
+                            '20%': { opacity: '0.6' },
+                            '80%': { opacity: '0.6' },
+                            '100%': { transform: 'translateY(-10vh) scale(1.5)', opacity: '0' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     
-    <!-- Google Fonts: Roboto & Oswald -->
+    <!-- Google Fonts: Outfit & Oswald -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* Aplicar fuentes y fondo oscuro */
         body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #0F0F0F;
-            color: #E0E0E0;
+            font-family: 'Outfit', sans-serif;
+            background-color: #0A0F0D;
+            color: #E2E8F0;
+            overflow-x: hidden;
         }
         
-        h1, h2, h3 {
+        h1, h2, h3, .font-heading {
             font-family: 'Oswald', sans-serif;
+            letter-spacing: 0.05em;
         }
 
-        /* --- Estilos para la sección de Inicio con fondo animado --- */
+        /* Glassmorphic elements */
+        .glass-panel {
+            background: rgba(18, 26, 22, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(74, 222, 128, 0.18);
+        }
+
+        .glass-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(20, 40, 28, 0.4) 100%);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(74, 222, 128, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .glass-card-hover {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glass-card-hover:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: rgba(0, 255, 102, 0.5);
+            box-shadow: 0 15px 35px rgba(0, 255, 102, 0.15);
+        }
+
+        /* Hero Section with animated background */
         .hero-section {
             position: relative;
-            overflow: hidden; /* Esencial para contener la animación */
+            overflow: hidden;
         }
         .hero-section::before {
             content: '';
@@ -37,291 +113,1061 @@
             background-image: url('https://raw.githubusercontent.com/esquejenzon/Imagen/main/fondo.png');
             background-size: cover;
             background-position: center;
-            animation: ken-burns 40s ease-in-out infinite;
+            animation: ken-burns 35s ease-in-out infinite alternate;
             z-index: 1;
+            opacity: 0.35;
         }
         @keyframes ken-burns {
-            0% {
-                transform: scale(1.1) translate(0, 0);
-            }
-            50% {
-                transform: scale(1.2) translate(4%, -4%);
-            }
-            100% {
-                transform: scale(1.1) translate(0, 0);
-            }
+            0% { transform: scale(1) translate(0, 0); }
+            100% { transform: scale(1.15) translate(-2%, -2%); }
         }
-        .hero-overlay {
-            position: absolute;
-            inset: 0;
-            background-color: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(2px);
-            z-index: 2;
-        }
-        .hero-content {
-            position: relative;
-            z-index: 3;
-        }
-        /* --- Fin de los estilos del fondo animado --- */
 
-
-        /* Estilo para la línea de tiempo */
-        .timeline-container::before {
-            content: '';
+        /* Ambient floating bubbles */
+        .bg-bubbles {
             position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
             top: 0;
-            bottom: 0;
-            width: 4px;
-            background-color: #4A5568; /* gray-700 */
-            border-radius: 2px;
-        }
-
-        .timeline-item {
-            position: relative;
+            left: 0;
             width: 100%;
-            padding-left: 2.5rem;
-            padding-right: 2.5rem;
+            height: 100%;
+            overflow: hidden;
+            z-index: 2;
+            pointer-events: none;
         }
-        
-        .timeline-item::before { /* Círculo en la línea de tiempo */
-            content: '';
+        .bg-bubbles li {
             position: absolute;
-            top: 1rem;
-            left: 50%;
-            transform: translateX(-50%);
+            list-style: none;
+            display: block;
             width: 20px;
             height: 20px;
-            border-radius: 9999px;
-            background-color: #48BB78; /* green-500 */
-            border: 4px solid #1A202C; /* gray-800 */
-            z-index: 1;
+            background: rgba(74, 222, 128, 0.12);
+            border: 1px solid rgba(0, 255, 102, 0.25);
+            box-shadow: inset 0 0 10px rgba(0, 255, 102, 0.2);
+            bottom: -150px;
+            border-radius: 50%;
+            animation: floatUp 25s infinite linear;
+        }
+        .bg-bubbles li:nth-child(1) { left: 10%; width: 80px; height: 80px; animation-delay: 0s; }
+        .bg-bubbles li:nth-child(2) { left: 20%; width: 30px; height: 30px; animation-delay: 2s; animation-duration: 17s; }
+        .bg-bubbles li:nth-child(3) { left: 25%; width: 50px; height: 50px; animation-delay: 4s; }
+        .bg-bubbles li:nth-child(4) { left: 40%; width: 60px; height: 60px; animation-duration: 22s; background: rgba(0, 255, 102, 0.08); }
+        .bg-bubbles li:nth-child(5) { left: 70%; width: 40px; height: 40px; animation-delay: 0s; }
+        .bg-bubbles li:nth-child(6) { left: 80%; width: 110px; height: 110px; animation-delay: 3s; background: rgba(34, 197, 94, 0.1); }
+        .bg-bubbles li:nth-child(7) { left: 32%; width: 90px; height: 90px; animation-delay: 7s; }
+        .bg-bubbles li:nth-child(8) { left: 55%; width: 25px; height: 25px; animation-delay: 15s; animation-duration: 40s; }
+        .bg-bubbles li:nth-child(9) { left: 90%; width: 45px; height: 45px; animation-delay: 11s; }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.7; }
+            100% { transform: translateY(-1200px) rotate(720deg); opacity: 0; }
         }
 
-        /* Media query para pantallas más grandes */
-        @media (min-width: 768px) {
-            .timeline-item {
-                width: 50%;
-                padding-left: 2.5rem;
-                padding-right: 2.5rem;
-            }
-
-            .timeline-item:nth-child(odd) {
-                align-self: flex-start;
-                padding-right: 2.5rem;
-                padding-left: 0;
-            }
-
-            .timeline-item:nth-child(even) {
-                align-self: flex-end;
-                padding-left: 2.5rem;
-                padding-right: 0;
-            }
-            
-            .timeline-content::after {
-                content: " ";
-                position: absolute;
-                top: 1.25rem;
-                width: 0;
-                height: 0;
-                border-top: 10px solid transparent;
-                border-bottom: 10px solid transparent;
-            }
-            
-            .timeline-item:nth-child(odd) .timeline-content::after {
-                right: -10px;
-                border-left: 10px solid #2D3748; /* gray-800 */
-            }
-
-            .timeline-item:nth-child(even) .timeline-content::after {
-                left: -10px;
-                border-right: 10px solid #2D3748; /* gray-800 */
-            }
-        }
-
-        /* --- Estilos para la sección de Galería con fondo animado --- */
-        .gallery-section {
+        /* Wheel aesthetics */
+        #roulette-container {
             position: relative;
-            overflow: hidden; /* Esencial para contener la animación */
+            filter: drop-shadow(0 0 35px rgba(0, 255, 102, 0.3));
         }
-        .gallery-section::before {
-            content: '';
+
+        .pointer-pin {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: linear-gradient(
-                45deg, 
-                rgba(255, 255, 255, 0.03) 25%, 
-                transparent 25%, 
-                transparent 50%, 
-                rgba(255, 255, 255, 0.03) 50%, 
-                rgba(255, 255, 255, 0.03) 75%, 
-                transparent 75%, 
-                transparent
-            );
-            background-size: 60px 60px;
-            z-index: 1;
-            animation: move-bg 40s linear infinite;
-        }
-        .gallery-content {
-            position: relative;
-            z-index: 2;
+            top: -16px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 36px solid #00ff66;
+            filter: drop-shadow(0 4px 10px rgba(0, 255, 102, 0.9));
+            z-index: 30;
         }
 
-        @keyframes move-bg {
-            0% {
-                background-position: 0 0;
-            }
-            100% {
-                background-position: 60px 60px;
-            }
+        /* Number ticket grid item */
+        .ticket-chip {
+            transition: all 0.2s ease;
         }
-        /* --- Fin de los estilos de la galería --- */
-        
-        .gallery-image-wrapper {
-            transition: transform 0.3s ease, filter 0.3s ease;
-            cursor: pointer;
+        .ticket-chip:hover {
+            transform: scale(1.15);
+            z-index: 10;
         }
-        .gallery-image-wrapper:hover {
-            transform: scale(1.03);
-            filter: brightness(1.1);
+        .ticket-chip.selected {
+            background-color: #00ff66 !important;
+            color: #052e16 !important;
+            box-shadow: 0 0 15px #00ff66;
+            font-weight: 800;
         }
-        
-        /* Estilos para el efecto Glitch en el footer */
-        .glitch {
-            position: relative;
-            color: #48BB78;
-            text-decoration: none;
-            font-weight: 700;
-            transition: color 0.3s ease;
+        .ticket-chip.winner-highlight {
+            animation: pulseWinner 0.6s infinite alternate;
         }
-        .glitch:hover {
-            color: #68D391;
-        }
-        .glitch::before,
-        .glitch::after {
-            content: attr(data-text);
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #000000; /* Color de fondo del footer */
-            overflow: hidden;
-            animation-duration: 3s;
-            animation-iteration-count: infinite;
-            animation-timing-function: linear;
-            animation-direction: alternate-reverse;
-        }
-        .glitch::before {
-            left: 2px;
-            text-shadow: -2px 0 #ff00c1;
-            animation-name: glitch-anim-1;
-        }
-        .glitch::after {
-            left: -2px;
-            text-shadow: -2px 0 #00fff9;
-            animation-name: glitch-anim-2;
-        }
-        @keyframes glitch-anim-1 {
-            0% { clip-path: inset(15% 0 86% 0); } 5% { clip-path: inset(48% 0 49% 0); } 10% { clip-path: inset(78% 0 20% 0); } 15% { clip-path: inset(45% 0 53% 0); } 20% { clip-path: inset(26% 0 68% 0); } 25% { clip-path: inset(52% 0 43% 0); } 30% { clip-path: inset(82% 0 6% 0); } 35% { clip-path: inset(60% 0 38% 0); } 40% { clip-path: inset(26% 0 70% 0); } 45% { clip-path: inset(8% 0 86% 0); } 50% { clip-path: inset(69% 0 26% 0); } 55% { clip-path: inset(34% 0 62% 0); } 60% { clip-path: inset(73% 0 21% 0); } 65% { clip-path: inset(91% 0 6% 0); } 70% { clip-path: inset(51% 0 43% 0); } 75% { clip-path: inset(18% 0 77% 0); } 80% { clip-path: inset(43% 0 52% 0); } 85% { clip-path: inset(63% 0 32% 0); } 90% { clip-path: inset(83% 0 12% 0); } 95% { clip-path: inset(44% 0 48% 0); } 100% { clip-path: inset(7% 0 90% 0); }
-        }
-        @keyframes glitch-anim-2 {
-            0% { clip-path: inset(90% 0 9% 0); } 5% { clip-path: inset(43% 0 49% 0); } 10% { clip-path: inset(7% 0 91% 0); } 15% { clip-path: inset(67% 0 27% 0); } 20% { clip-path: inset(88% 0 7% 0); } 25% { clip-path: inset(53% 0 38% 0); } 30% { clip-path: inset(28% 0 67% 0); } 35% { clip-path: inset(78% 0 12% 0); } 40% { clip-path: inset(43% 0 52% 0); } 45% { clip-path: inset(72% 0 23% 0); } 50% { clip-path: inset(38% 0 57% 0); } 55% { clip-path: inset(87% 0 6% 0); } 60% { clip-path: inset(62% 0 32% 0); } 65% { clip-path: inset(34% 0 61% 0); } 70% { clip-path: inset(77% 0 17% 0); } 75% { clip-path: inset(52% 0 43% 0); } 80% { clip-path: inset(23% 0 72% 0); } 85% { clip-path: inset(8% 0 89% 0); } 90% { clip-path: inset(67% 0 28% 0); } 95% { clip-path: inset(88% 0 10% 0); } 100% { clip-path: inset(62% 0 33% 0); }
+        @keyframes pulseWinner {
+            0% { transform: scale(1); box-shadow: 0 0 10px #fbbf24; }
+            100% { transform: scale(1.3); box-shadow: 0 0 25px #fbbf24; background-color: #fbbf24; color: #000; }
         }
 
-        /* Estilos para el Modal de Imagen */
-        #image-modal.hidden {
-            display: none;
+        /* Custom scrollbars */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0f0d;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #166534;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #22c55e;
         }
     </style>
 </head>
-<body class="antialiased">
+<body class="antialiased text-gray-200 selection:bg-cannabis-500 selection:text-black">
 
-    <!-- Header -->
-    <header class="bg-black bg-opacity-80 backdrop-blur-sm sticky top-0 z-50 shadow-lg shadow-green-500/10">
-        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-            <h1 class="text-3xl font-bold uppercase text-green-500 tracking-wider">Esquejenzon</h1>
+    <!-- Ambient floating bubble particle layer -->
+    <ul class="bg-bubbles">
+        <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+    </ul>
+
+    <!-- Header Navigation -->
+    <header class="bg-black/80 backdrop-blur-md sticky top-0 z-50 border-b border-cannabis-500/20 shadow-lg shadow-black/50">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4">
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-cannabis-400 to-cannabis-900 flex items-center justify-center shadow-lg shadow-cannabis-500/30 group-hover:scale-105 transition-transform">
+                    <i class="fa-solid fa-cannabis text-black text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-bold uppercase text-white tracking-wider flex items-center gap-2 font-heading">
+                        ESQUEJENZON <span class="text-cannabis-400 text-xs px-2 py-0.5 rounded-full bg-cannabis-950 border border-cannabis-500/40">RIFAS</span>
+                    </h1>
+                    <p class="text-[10px] text-gray-400 font-mono tracking-tight">Cultivador de Cannabis & Parafernalia</p>
+                </div>
+            </a>
+
+            <!-- REPROCANN Badge Header -->
+            <div class="hidden md:flex items-center gap-2 bg-cannabis-950/80 border border-cannabis-500/30 px-3.5 py-1.5 rounded-full text-xs text-cannabis-300">
+                <i class="fa-solid fa-shield-halved text-cannabis-400"></i>
+                <span>Respeta Normativa <strong>REPROCANN</strong> • <strong>NO VENTA DE CANNABIS</strong></span>
+            </div>
+
+            <!-- Nav Links -->
+            <div class="flex items-center gap-4 text-sm font-medium">
+                <a href="#rifa-ruleta" class="hover:text-cannabis-400 transition-colors flex items-center gap-1.5 text-cannabis-300 font-semibold">
+                    <i class="fa-solid fa-dice text-cannabis-400"></i> Ruleta 1-50
+                </a>
+                <a href="#carrusel-burbuja" class="hover:text-cannabis-400 transition-colors hidden sm:inline-block">
+                    Galería Flotante
+                </a>
+                <a href="#historia" class="hover:text-cannabis-400 transition-colors hidden sm:inline-block">
+                    Historia
+                </a>
+                <a href="#rifa-ruleta" class="bg-gradient-to-r from-cannabis-600 to-cannabis-400 hover:from-cannabis-500 hover:to-cannabis-300 text-black font-bold px-4 py-2 rounded-xl transition-all transform hover:scale-105 shadow-md shadow-cannabis-500/20 flex items-center gap-2">
+                    <i class="fa-solid fa-ticket"></i> Sorteos
+                </a>
+            </div>
         </nav>
+
+        <!-- REPROCANN Mobile Notice Bar -->
+        <div class="md:hidden bg-cannabis-950 border-t border-b border-cannabis-900 text-center py-1 px-2 text-[11px] text-cannabis-300">
+            <i class="fa-solid fa-shield-check text-cannabis-400 mr-1"></i> Respetamos reglas REPROCANN. <strong>NO vendemos cannabis</strong>. Sorteos exclusivos de accesorios.
+        </div>
     </header>
 
-    <!-- Sección de Introducción con Fondo Animado -->
-    <section class="hero-section text-center py-28 px-4">
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <h2 class="text-4xl md:text-5xl font-bold uppercase text-white">Mi Viaje Cannábico</h2>
-            <p class="max-w-3xl mx-auto mt-6 text-lg text-gray-200">
-                Mi historia con el cannabis empezó en 2009. Desde entonces, no he dejado de aprender, experimentar y perfeccionar mi técnica. He pasado de cultivar en un armario casero a dominar carpas de cultivo con genéticas de primer nivel. En este espacio comparto con ustedes mi pasión y los frutos de más de 15 años de dedicación. ¡Espero que lo disfruten!
+    <!-- Hero Section: Gran Rifa Esquejenzon -->
+    <section class="hero-section py-20 px-4 relative z-10">
+        <div class="max-w-5xl mx-auto text-center relative z-20">
+            
+            <!-- Badge Legal REPROCANN -->
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel border-cannabis-400/40 text-cannabis-300 text-xs sm:text-sm mb-6 animate-pulse">
+                <span class="w-2.5 h-2.5 rounded-full bg-cannabis-neon shadow-[0_0_10px_#00ff66]"></span>
+                <i class="fa-solid fa-gavel text-cannabis-400"></i>
+                <span class="font-medium">100% Legal & Transparente • Ajustado a Normativa REPROCANN</span>
+            </div>
+
+            <!-- Title -->
+            <h1 class="text-5xl sm:text-6xl md:text-7xl font-extrabold uppercase tracking-tight text-white mb-4 drop-shadow-[0_5px_15px_rgba(0,0,0,0.8)] font-heading">
+                GRAN RIFA <span class="bg-gradient-to-r from-cannabis-400 via-cannabis-neon to-emerald-200 bg-clip-text text-transparent">ESQUEJENZON</span>
+            </h1>
+
+            <p class="text-lg sm:text-xl text-gray-300 max-w-3xl mx-auto mb-8 font-light leading-relaxed">
+                ¡Participá en los sorteos oficiales de la comunidad! Números del <strong class="text-cannabis-400 font-bold">1 al 50</strong>. 
+                Premios únicos de parafernalia, insumos de cultivo de alta gama y merchandising exclusivo para cultivadores.
             </p>
+
+            <!-- Legal REPROCANN Card Disclaimer Box -->
+            <div class="glass-card max-w-3xl mx-auto p-5 sm:p-6 rounded-2xl mb-10 text-left border-l-4 border-l-cannabis-400 relative overflow-hidden">
+                <div class="absolute -right-6 -bottom-6 text-cannabis-500/10 text-8xl pointer-events-none">
+                    <i class="fa-solid fa-leaf"></i>
+                </div>
+                <div class="flex items-start gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-cannabis-900/80 border border-cannabis-500/40 flex items-center justify-center shrink-0 text-cannabis-400 text-2xl mt-1">
+                        <i class="fa-solid fa-scale-balanced"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-bold text-base sm:text-lg flex items-center gap-2">
+                            Aviso de Cumplimiento Legal (REPROCANN)
+                        </h4>
+                        <p class="text-gray-300 text-xs sm:text-sm mt-1 leading-relaxed">
+                            Este sitio respeta rigurosamente las regulaciones del <strong>REPROCANN (Ley 27.350)</strong>. 
+                            <span class="text-cannabis-300 font-semibold underline decoration-cannabis-500">NO vendemos ni comercializamos cannabis</span>, flores, ni sustancias psicotrópicas sujetas a control. Los sorteos realizados corresponden strictly a <strong>accesorios de parafernalia, insumos de cultivo, macetas, mecheros, picadores y merchandising</strong>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hero Action Buttons -->
+            <div class="flex flex-wrap items-center justify-center gap-4">
+                <a href="#rifa-ruleta" class="bg-gradient-to-r from-cannabis-500 to-cannabis-600 hover:from-cannabis-400 hover:to-cannabis-500 text-black font-extrabold text-lg px-8 py-4 rounded-2xl shadow-xl shadow-cannabis-500/30 hover:shadow-cannabis-400/50 transition-all transform hover:-translate-y-1 flex items-center gap-3">
+                    <i class="fa-solid fa-dharmachakra text-xl animate-spin-slow"></i>
+                    <span>IR A LA RULETA 1-50</span>
+                </a>
+                <a href="#accesorios" class="glass-card hover:bg-white/10 text-white font-semibold text-base px-6 py-4 rounded-2xl transition-all border border-cannabis-500/30 flex items-center gap-2">
+                    <i class="fa-solid fa-gift text-cannabis-400"></i>
+                    <span>Ver Premios</span>
+                </a>
+            </div>
+
         </div>
     </section>
 
-    <!-- Contenido Principal: Línea de Tiempo -->
-    <main class="py-16 md:py-24 px-4 sm:px-6 lg:px-8">
+    <!-- SECTION: RULETA DE LOS NÚMEROS DEL 1 AL 50 -->
+    <section id="rifa-ruleta" class="py-16 px-4 relative z-20">
         <div class="max-w-7xl mx-auto">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 text-green-400">La Evolución de un Cultivador</h2>
             
-            <div class="relative flex flex-col items-center timeline-container">
-                <!-- Evento 1: Inicios -->
-                <div class="timeline-item mb-12">
-                    <div class="relative bg-gray-800 p-6 rounded-xl shadow-lg timeline-content">
-                        <h3 class="text-xl font-bold text-green-400 mb-2">2009: Los Inicios en el Armario</h3>
-                        <p class="text-gray-300 leading-relaxed mb-4">Empecé a cultivar con semillas de prensado en un armario casero de 0.50x1.80m, con focos básicos y ventiladores de CPU. Fue mi primera inmersión en el mundo real del cannabis.</p>
-                        <img src="https://raw.githubusercontent.com/esquejenzon/Imagen/main/1.jpeg" alt="Primeras plantas" class="rounded-lg w-full h-auto object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/111827/4ade80?text=Inicio+2009';">
+            <div class="text-center mb-12">
+                <span class="text-cannabis-400 text-xs uppercase tracking-widest font-bold px-3 py-1 rounded-full bg-cannabis-950 border border-cannabis-500/30">
+                    <i class="fa-solid fa-clover"></i> Sorteo Interactivo
+                </span>
+                <h2 class="text-4xl md:text-5xl font-bold uppercase text-white mt-3 font-heading">
+                    RULETA DE LA SUERTE <span class="text-cannabis-400">(1 al 50)</span>
+                </h2>
+                <p class="text-gray-300 max-w-2xl mx-auto mt-2 text-sm sm:text-base">
+                    Girá la ruleta cultivadora para obtener un número al azar del 1 al 50 o elegí tus números preferidos en el tablero para los próximos sorteos de accesorios.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                
+                <!-- Left Column: Wheel Canvas Container -->
+                <div class="lg:col-span-7 flex flex-col items-center">
+                    <div class="glass-panel p-6 sm:p-8 rounded-3xl w-full max-w-lg flex flex-col items-center border border-cannabis-500/30 relative">
+                        
+                        <!-- Pointer Pin -->
+                        <div class="pointer-pin"></div>
+
+                        <!-- Wheel Canvas -->
+                        <div id="roulette-container" class="relative my-4">
+                            <canvas id="roulette-canvas" width="440" height="440" class="max-w-full h-auto drop-shadow-2xl cursor-pointer"></canvas>
+                        </div>
+
+                        <!-- Controls -->
+                        <div class="w-full mt-4 flex flex-col sm:flex-row items-center gap-3">
+                            <button id="spin-btn" class="w-full sm:flex-1 bg-gradient-to-r from-cannabis-400 via-cannabis-neon to-cannabis-500 text-black font-extrabold text-lg py-4 px-6 rounded-2xl shadow-lg shadow-cannabis-500/40 hover:shadow-cannabis-400/70 hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-3">
+                                <i class="fa-solid fa-play text-xl"></i>
+                                <span>GIRAR RULETA</span>
+                            </button>
+
+                            <button id="random-pick-btn" title="Seleccionar al azar" class="w-full sm:w-auto bg-gray-800 hover:bg-gray-700 text-cannabis-300 font-semibold py-4 px-5 rounded-2xl border border-cannabis-500/30 transition-all flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-shuffle"></i>
+                                <span class="sm:hidden">Azar</span>
+                            </button>
+                        </div>
+
+                        <!-- Last Result Display -->
+                        <div class="mt-4 text-center bg-black/60 w-full py-2.5 px-4 rounded-xl border border-cannabis-900 flex items-center justify-between">
+                            <span class="text-xs text-gray-400 uppercase font-mono">Último Número Ganador:</span>
+                            <span id="last-number-display" class="text-xl font-bold text-cannabis-neon font-heading">#--</span>
+                        </div>
+
                     </div>
                 </div>
 
-                <!-- Evento 2: Información -->
-                <div class="timeline-item mb-12">
-                    <div class="relative bg-gray-800 p-6 rounded-xl shadow-lg timeline-content">
-                        <h3 class="text-xl font-bold text-green-400 mb-2">El Despertar Informativo</h3>
-                        <p class="text-gray-300 leading-relaxed mb-4">Descubrí la revista THC y conecté con otros apasionados. Empezamos a conseguir genéticas de breeders reconocidos como Ladyburn 1974 y la mítica Kilimanjaro. El conocimiento cambió el juego.</p>
-                        <img src="https://raw.githubusercontent.com/esquejenzon/Imagen/main/10.jpeg" alt="Revista THC" class="rounded-lg w-full h-auto object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/111827/4ade80?text=Genéticas';">
+                <!-- Right Column: Interactive 1-50 Number Ticket Grid & Rules -->
+                <div class="lg:col-span-5 flex flex-col gap-6">
+                    
+                    <!-- Ticket Grid Panel -->
+                    <div class="glass-panel p-6 rounded-3xl border border-cannabis-500/30">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-bold text-white flex items-center gap-2 font-heading">
+                                <i class="fa-solid fa-table-cells text-cannabis-400"></i> Tablero del 1 al 50
+                            </h3>
+                            <span class="text-xs text-cannabis-400 font-mono">50 Números Disponibles</span>
+                        </div>
+                        <p class="text-xs text-gray-400 mb-4">Hacé clic en cualquier número para simular tu ticket de la Rifa Esquejenzon:</p>
+                        
+                        <!-- 1 to 50 Grid -->
+                        <div id="numbers-grid" class="grid grid-cols-10 gap-1.5 sm:gap-2 max-h-[300px] overflow-y-auto pr-1">
+                            <!-- JS generates 50 chips here -->
+                        </div>
+
+                        <!-- Selected Tickets Box -->
+                        <div class="mt-4 pt-4 border-t border-cannabis-900 flex items-center justify-between text-xs text-gray-300">
+                            <span>Tu Selección: <strong id="selected-count" class="text-cannabis-400 font-bold">0</strong> números</span>
+                            <button id="clear-selected-btn" class="text-gray-400 hover:text-red-400 transition-colors">Limpiar</button>
+                        </div>
+                    </div>
+
+                    <!-- Accessories & Legal Info -->
+                    <div class="glass-card p-6 rounded-3xl border border-cannabis-500/20">
+                        <h4 class="text-base font-bold text-white mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-gift text-cannabis-400"></i> ¿Qué accesorios sorteamos?
+                        </h4>
+                        <ul class="text-xs text-gray-300 space-y-2 mb-4">
+                            <li class="flex items-center gap-2">
+                                <i class="fa-solid fa-check text-cannabis-400"></i> Picadores / Grinders de aluminio anodizado y resina.
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i class="fa-solid fa-check text-cannabis-400"></i> Sedas, papelillos y filtros de colección.
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i class="fa-solid fa-check text-cannabis-400"></i> Ceniceros de diseño, mecheros Clipper & fundas.
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <i class="fa-solid fa-check text-cannabis-400"></i> Insumos de cultivo: Macetas textiles, fertis orgánicos, stickers.
+                            </li>
+                        </ul>
+                        <div class="bg-black/50 p-3 rounded-xl border border-cannabis-500/20 text-[11px] text-gray-400 italic">
+                            📌 "Recordá que no comerciamos cannabis ni derivados bajo ninguna circunstancia. Apoyamos el autocultivo responsable e informado bajo el paraguas de REPROCANN."
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECTION: PREMIOS DESTACADOS (ACCESORIOS) -->
+    <section id="accesorios" class="py-12 px-4 relative z-20">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl sm:text-4xl font-bold uppercase text-white font-heading">
+                    KITS DE ACCESORIOS <span class="text-cannabis-400">A SORTEAR</span>
+                </h2>
+                <p class="text-gray-400 text-sm mt-1">Premios reales para participantes de la Gran Rifa Esquejenzon</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Prize Card 1 -->
+                <div class="glass-card glass-card-hover p-6 rounded-3xl relative overflow-hidden flex flex-col justify-between">
+                    <div class="absolute top-4 right-4 bg-cannabis-500/20 text-cannabis-300 text-xs font-bold px-3 py-1 rounded-full border border-cannabis-500/30">
+                        1º Premio
+                    </div>
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-cannabis-900/80 border border-cannabis-500/30 flex items-center justify-center text-cannabis-400 text-2xl mb-4">
+                            <i class="fa-solid fa-trophy"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2 font-heading">Kit Master Cultivador</h3>
+                        <p class="text-gray-300 text-xs leading-relaxed mb-4">
+                            Picador pro de 4 partes, cenicero de resina artesanal, pack de sedas King Size, tijeras de poda de precisión y stickers exclusivos de Esquejenzon.
+                        </p>
+                    </div>
+                    <div class="pt-3 border-t border-cannabis-900 text-xs text-cannabis-400 font-semibold flex items-center justify-between">
+                        <span>Accesorios de Parafernalia</span>
+                        <i class="fa-solid fa-arrow-right"></i>
                     </div>
                 </div>
 
-                <!-- Evento 3: Profesionalización -->
-                <div class="timeline-item mb-12">
-                    <div class="relative bg-gray-800 p-6 rounded-xl shadow-lg timeline-content">
-                        <h3 class="text-xl font-bold text-green-400 mb-2">2017: La Profesionalización</h3>
-                        <p class="text-gray-300 leading-relaxed mb-4">Compré mi primera carpa y un panel Full Spectrum de Growtech. Mis cultivos avanzaron con genéticas de calidad de The Green House Seeds, adquiridas a Don Sodio, un breeder de Quilmes.</p>
-                        <img src="https://raw.githubusercontent.com/esquejenzon/Imagen/main/20.jpeg" alt="Carpa de cultivo" class="rounded-lg w-full h-auto object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/111827/4ade80?text=Carpa+2017';">
+                <!-- Prize Card 2 -->
+                <div class="glass-card glass-card-hover p-6 rounded-3xl relative overflow-hidden flex flex-col justify-between">
+                    <div class="absolute top-4 right-4 bg-cannabis-500/20 text-cannabis-300 text-xs font-bold px-3 py-1 rounded-full border border-cannabis-500/30">
+                        2º Premio
+                    </div>
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-cannabis-900/80 border border-cannabis-500/30 flex items-center justify-center text-cannabis-400 text-2xl mb-4">
+                            <i class="fa-solid fa-seedling"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2 font-heading">Kit Nutrición & Macetas</h3>
+                        <p class="text-gray-300 text-xs leading-relaxed mb-4">
+                            Set de macetas geotextiles de 10L, pack de fertilización orgánica para vegetativo y floración, medidor de pH y lupa tricoloma 60x.
+                        </p>
+                    </div>
+                    <div class="pt-3 border-t border-cannabis-900 text-xs text-cannabis-400 font-semibold flex items-center justify-between">
+                        <span>Insumos de Cultivo</span>
+                        <i class="fa-solid fa-arrow-right"></i>
                     </div>
                 </div>
+
+                <!-- Prize Card 3 -->
+                <div class="glass-card glass-card-hover p-6 rounded-3xl relative overflow-hidden flex flex-col justify-between sm:col-span-2 lg:col-span-1">
+                    <div class="absolute top-4 right-4 bg-cannabis-500/20 text-cannabis-300 text-xs font-bold px-3 py-1 rounded-full border border-cannabis-500/30">
+                        3º Premio
+                    </div>
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-cannabis-900/80 border border-cannabis-500/30 flex items-center justify-center text-cannabis-400 text-2xl mb-4">
+                            <i class="fa-solid fa-fire"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2 font-heading">Kit Pocket Smokers</h3>
+                        <p class="text-gray-300 text-xs leading-relaxed mb-4">
+                            Picador de bolsillo, armador automático metalizado, encendedor Clipper coleccionable, estuche hermético anti-olor y llavero Esquejenzon.
+                        </p>
+                    </div>
+                    <div class="pt-3 border-t border-cannabis-900 text-xs text-cannabis-400 font-semibold flex items-center justify-between">
+                        <span>Pocket Parafernalia</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: CARRUSEL TRANSPARENTE CON MOVIMIENTO ESTILO BURBUJA -->
+    <section id="carrusel-burbuja" class="py-20 px-4 relative z-20 overflow-hidden">
+        
+        <!-- Section Header -->
+        <div class="max-w-7xl mx-auto text-center mb-14">
+            <span class="text-cannabis-400 text-xs uppercase tracking-widest font-bold px-3 py-1 rounded-full bg-cannabis-950 border border-cannabis-500/30">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> Galería Flotante Transparente
+            </span>
+            <h2 class="text-4xl md:text-5xl font-bold uppercase text-white mt-3 font-heading">
+                REGISTRO DE CULTIVO <span class="text-cannabis-400">& GALERÍA</span>
+            </h2>
+            <p class="text-gray-300 max-w-2xl mx-auto mt-2 text-sm sm:text-base">
+                Imágenes con acabado glassmorphism transparente y animación continua en efecto burbuja.
+            </p>
+        </div>
+
+        <!-- Carousel Container -->
+        <div class="max-w-6xl mx-auto relative px-4 sm:px-12">
+            
+            <!-- Controls Buttons -->
+            <button id="carousel-prev" class="absolute left-0 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full glass-panel hover:bg-cannabis-500/30 text-white flex items-center justify-center border border-cannabis-500/40 shadow-lg hover:scale-110 transition-all">
+                <i class="fa-solid fa-chevron-left text-xl"></i>
+            </button>
+            <button id="carousel-next" class="absolute right-0 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full glass-panel hover:bg-cannabis-500/30 text-white flex items-center justify-center border border-cannabis-500/40 shadow-lg hover:scale-110 transition-all">
+                <i class="fa-solid fa-chevron-right text-xl"></i>
+            </button>
+
+            <!-- Track Wrapper -->
+            <div class="overflow-hidden py-8 px-2">
+                <div id="carousel-track" class="flex transition-transform duration-700 ease-out gap-6">
+                    <!-- JS inserts floating bubble glass cards dynamically -->
+                </div>
+            </div>
+
+            <!-- Dots Navigation -->
+            <div id="carousel-dots" class="flex items-center justify-center gap-2 mt-6">
+                <!-- JS creates dots -->
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- SECTION: HISTORIA & EVOLUCIÓN CULTIVADOR -->
+    <main id="historia" class="py-16 md:py-24 px-4 sm:px-6 lg:px-8 relative z-20">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-bold text-white uppercase font-heading">
+                    LA EVOLUCIÓN DE UN <span class="text-cannabis-400">CULTIVADOR</span>
+                </h2>
+                <p class="text-gray-400 max-w-2xl mx-auto mt-2">Más de 15 años de pasión, estudio y perfeccionamiento en el arte de cultivar.</p>
+            </div>
+            
+            <!-- Timeline Container -->
+            <div class="relative flex flex-col items-center space-y-12">
+                
+                <!-- Central Timeline Bar -->
+                <div class="absolute left-1/2 transform -translate-x-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-cannabis-500 via-cannabis-800 to-transparent rounded-full hidden md:block"></div>
+
+                <!-- Event 1: 2009 Inicios -->
+                <div class="w-full md:w-5/12 md:self-start relative group">
+                    <div class="glass-card p-6 rounded-3xl border border-cannabis-500/30 relative">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-bold text-black bg-cannabis-400 px-3 py-1 rounded-full font-mono">2009</span>
+                            <span class="text-xs text-gray-400"><i class="fa-solid fa-seedling text-cannabis-400"></i> Los Inicios</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2 font-heading">Primeros Pasos en Armario Casero</h3>
+                        <p class="text-gray-300 text-sm leading-relaxed mb-4">
+                            Empecé a cultivar con semillas de prensado en un espacio reducido de 0.50x1.80m, adaptando focos básicos y ventiladores de CPU. Fue el despertar del amor por esta planta sagrada.
+                        </p>
+                        <div class="overflow-hidden rounded-2xl border border-cannabis-500/20">
+                            <img src="https://raw.githubusercontent.com/esquejenzon/Imagen/main/1.jpeg" alt="Primeros cultivos 2009" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500 cursor-pointer modal-trigger" onerror="this.src='https://placehold.co/600x400/111827/4ade80?text=Inicio+2009';">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Event 2: Conocimiento y Genéticas -->
+                <div class="w-full md:w-5/12 md:self-end relative group">
+                    <div class="glass-card p-6 rounded-3xl border border-cannabis-500/30 relative">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-bold text-black bg-cannabis-400 px-3 py-1 rounded-full font-mono">2013-2015</span>
+                            <span class="text-xs text-gray-400"><i class="fa-solid fa-book-open-reader text-cannabis-400"></i> Aprendizaje</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2 font-heading">El Despertar Informativo & Genéticas</h3>
+                        <p class="text-gray-300 text-sm leading-relaxed mb-4">
+                            Descubrimiento de la revista THC, foros cannábicos y trabajo con genéticas legendarias como Ladyburn 1974 y Kilimanjaro. La técnica y el conocimiento transformaron los resultados.
+                        </p>
+                        <div class="overflow-hidden rounded-2xl border border-cannabis-500/20">
+                            <img src="https://raw.githubusercontent.com/esquejenzon/Imagen/main/10.jpeg" alt="Genéticas y Revista THC" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500 cursor-pointer modal-trigger" onerror="this.src='https://placehold.co/600x400/111827/4ade80?text=Gen%C3%A9ticas';">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Event 3: Profesionalización -->
+                <div class="w-full md:w-5/12 md:self-start relative group">
+                    <div class="glass-card p-6 rounded-3xl border border-cannabis-500/30 relative">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-bold text-black bg-cannabis-400 px-3 py-1 rounded-full font-mono">2017 - Presente</span>
+                            <span class="text-xs text-gray-400"><i class="fa-solid fa-microscope text-cannabis-400"></i> Alta Gama</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2 font-heading">Profesionalización & Carpas LED</h3>
+                        <p class="text-gray-300 text-sm leading-relaxed mb-4">
+                            Incorporación de carpas pro, iluminación LED Full Spectrum de última generación, fertilización avanzada y selección de madres legendarias de breeders locales e internacionales.
+                        </p>
+                        <div class="overflow-hidden rounded-2xl border border-cannabis-500/20">
+                            <img src="https://raw.githubusercontent.com/esquejenzon/Imagen/main/20.jpeg" alt="Carpa de cultivo LED" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500 cursor-pointer modal-trigger" onerror="this.src='https://placehold.co/600x400/111827/4ade80?text=Carpa+Pro';">
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </main>
 
-    <!-- Sección de Galería con Fondo Animado -->
-    <section class="gallery-section py-16 bg-gray-900">
-        <div class="gallery-content max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-green-400">Galería de Cultivos</h2>
+    <!-- SECTION: GALERÍA MASONRY GENERAL -->
+    <section class="py-16 bg-black/60 relative z-20 border-t border-cannabis-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-white uppercase font-heading">
+                    GALERÍA DE <span class="text-cannabis-400">FOTOGRAFÍAS</span>
+                </h2>
+                <p class="text-gray-400 text-sm">Hacé clic en cualquier imagen para ampliar en alta definición</p>
+            </div>
             
             <div id="gallery-container" class="columns-2 sm:columns-3 md:columns-4 lg:columns-5 gap-4 space-y-4">
-                <!-- Las imágenes se insertarán aquí con JavaScript -->
+                <!-- JS inserts images dynamically -->
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-black text-center py-6">
-        <p class="text-gray-500">&copy; <span id="year"></span> Esquejenzon. Creado por 
-            <a href="https://puffstudios.github.io/Perfiles/" target="_blank" rel="noopener noreferrer" class="glitch" data-text="Puff Studios">Puff Studios</a>
-        </p>
+    <footer class="bg-black border-t border-cannabis-900 py-10 relative z-20">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            
+            <!-- REPROCANN Final Notice -->
+            <div class="max-w-2xl mx-auto mb-6 p-4 rounded-2xl glass-panel text-xs text-gray-400 border border-cannabis-500/20">
+                <p class="mb-1 text-cannabis-300 font-semibold">
+                    <i class="fa-solid fa-shield-halved text-cannabis-400 mr-1"></i> AVISO LEGAL REPROCANN
+                </p>
+                <p>
+                    Esquejenzon es un espacio dedicado a la cultura del cultivo y sorteos comunitarios de accesorios de parafernalia. Se encuentra estrictamente prohibida la comercialización de cannabis o sustancias fiscalizadas. Respetamos la Ley 27.350 y el marco normativo nacional argentino.
+                </p>
+            </div>
+
+            <p class="text-gray-400 text-sm">&copy; <span id="year"></span> <strong>Esquejenzon</strong>. Todos los derechos reservados. Creado por 
+                <a href="https://puffstudios.github.io/Perfiles/" target="_blank" rel="noopener noreferrer" class="text-cannabis-400 hover:text-cannabis-300 font-bold underline decoration-cannabis-500 transition-colors">
+                    Puff Studios
+                </a>
+            </p>
+        </div>
     </footer>
 
-    <!-- Modal para ver imagen en grande -->
-    <div id="image-modal" class="hidden fixed inset-0 bg-black bg-opacity-80 backdrop-blur-md flex items-center justify-center z-[100] p-4">
-        <span id="close-modal" class="absolute top-4 right-6 text-white text-5xl font-bold cursor-pointer hover:text-gray-400 transition-colors">&times;</span>
-        <img id="modal-image" src="" alt="Imagen de cultivo ampliada" class="max-w-[90vw] max-h-[90vh] rounded-lg shadow-2xl shadow-black">
+    <!-- MODAL DE IMAGEN AMPLIADA -->
+    <div id="image-modal" class="hidden fixed inset-0 bg-black/90 backdrop-blur-md flex items-center justify-center z-[100] p-4">
+        <button id="close-modal" class="absolute top-6 right-8 text-white text-4xl font-bold hover:text-cannabis-400 transition-colors cursor-pointer z-10">&times;</button>
+        <img id="modal-image" src="" alt="Imagen de cultivo ampliada" class="max-w-[92vw] max-h-[88vh] rounded-2xl shadow-2xl border border-cannabis-500/30 object-contain">
     </div>
 
+    <!-- MODAL GANADOR DE RULETA -->
+    <div id="winner-modal" class="hidden fixed inset-0 bg-black/85 backdrop-blur-lg flex items-center justify-center z-[100] p-4">
+        <div class="glass-card max-w-md w-full p-8 rounded-3xl border-2 border-cannabis-neon text-center relative shadow-[0_0_50px_rgba(0,255,102,0.4)] animate-bounce-short">
+            
+            <div class="w-20 h-20 mx-auto rounded-full bg-gradient-to-tr from-cannabis-neon to-cannabis-500 flex items-center justify-center text-black text-4xl mb-4 shadow-lg shadow-cannabis-neon/50">
+                <i class="fa-solid fa-trophy"></i>
+            </div>
+
+            <h3 class="text-3xl font-extrabold text-white uppercase font-heading mb-1">¡NÚMERO SALIDOR!</h3>
+            <p class="text-xs text-cannabis-300 font-mono tracking-widest uppercase mb-4">Sorteo Rifa Esquejenzon 1-50</p>
+
+            <div class="bg-black/70 py-4 px-6 rounded-2xl border border-cannabis-500/40 mb-6">
+                <span class="text-gray-400 text-xs block mb-1">NÚMERO GANADOR DE LA RULETA</span>
+                <span id="modal-winner-number" class="text-6xl font-black text-cannabis-neon font-heading drop-shadow-[0_0_15px_#00ff66]">#--</span>
+            </div>
+
+            <p class="text-xs text-gray-300 mb-6 leading-relaxed">
+                ¡Felicidades! Si tenés este número asignado para la rifa del kit de accesorios de cultivador, ponete en contacto para coordinar el retiro de tu premio.
+            </p>
+
+            <div class="flex flex-col gap-3">
+                <button id="close-winner-modal" class="w-full bg-gradient-to-r from-cannabis-400 to-cannabis-500 hover:from-cannabis-300 hover:to-cannabis-400 text-black font-extrabold py-3.5 px-6 rounded-xl transition-all shadow-md shadow-cannabis-500/30">
+                    ¡ENTENDIDO Y CONTINUAR!
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CANVAS CONFETTI EFFECT SCRIPT -->
+    <canvas id="confetti-canvas" class="fixed inset-0 pointer-events-none z-[90]"></canvas>
+
+    <!-- MAIN JAVASCRIPT LOGIC -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // --- Lógica del Modal ---
+            
+            // --- 1. Audio Sound Effects (Web Audio API Synthesizer) ---
+            const AudioCtx = window.AudioContext || window.webkitAudioContext;
+            let audioCtx = null;
+
+            function getAudioContext() {
+                if (!audioCtx) {
+                    audioCtx = new AudioCtx();
+                }
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+                return audioCtx;
+            }
+
+            function playTickSound() {
+                try {
+                    const ctx = getAudioContext();
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(450, ctx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(150, ctx.currentTime + 0.04);
+                    gain.gain.setValueAtTime(0.15, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.04);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.04);
+                } catch(e) {}
+            }
+
+            function playFanfareSound() {
+                try {
+                    const ctx = getAudioContext();
+                    const notes = [261.63, 329.63, 392.00, 523.25, 659.25, 783.99];
+                    notes.forEach((freq, idx) => {
+                        const osc = ctx.createOscillator();
+                        const gain = ctx.createGain();
+                        osc.type = 'sine';
+                        osc.frequency.setValueAtTime(freq, ctx.currentTime + idx * 0.08);
+                        gain.gain.setValueAtTime(0, ctx.currentTime + idx * 0.08);
+                        gain.gain.linearRampToValueAtTime(0.2, ctx.currentTime + idx * 0.08 + 0.02);
+                        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + idx * 0.08 + 0.3);
+                        osc.connect(gain);
+                        gain.connect(ctx.destination);
+                        osc.start(ctx.currentTime + idx * 0.08);
+                        osc.stop(ctx.currentTime + idx * 0.08 + 0.35);
+                    });
+                } catch(e) {}
+            }
+
+            // --- 2. Canvas Confetti Particle System ---
+            const confettiCanvas = document.getElementById('confetti-canvas');
+            const confettiCtx = confettiCanvas.getContext('2d');
+            let confettiParticles = [];
+            let confettiAnimationId = null;
+
+            function resizeConfetti() {
+                confettiCanvas.width = window.innerWidth;
+                confettiCanvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resizeConfetti);
+            resizeConfetti();
+
+            function triggerConfetti() {
+                confettiParticles = [];
+                const colors = ['#00ff66', '#4ade80', '#fbbf24', '#ffffff', '#15803d'];
+                for (let i = 0; i < 120; i++) {
+                    confettiParticles.push({
+                        x: window.innerWidth / 2,
+                        y: window.innerHeight / 2 - 100,
+                        vx: (Math.random() - 0.5) * 16,
+                        vy: (Math.random() - 0.7) * 16,
+                        size: Math.random() * 8 + 4,
+                        color: colors[Math.floor(Math.random() * colors.length)],
+                        rotation: Math.random() * 360,
+                        vRot: (Math.random() - 0.5) * 10,
+                        life: 1.0,
+                        decay: Math.random() * 0.015 + 0.008
+                    });
+                }
+                if (confettiAnimationId) cancelAnimationFrame(confettiAnimationId);
+                animateConfetti();
+            }
+
+            function animateConfetti() {
+                confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+                let alive = false;
+                confettiParticles.forEach(p => {
+                    if (p.life > 0) {
+                        alive = true;
+                        p.x += p.vx;
+                        p.y += p.vy;
+                        p.vy += 0.35; // gravity
+                        p.rotation += p.vRot;
+                        p.life -= p.decay;
+
+                        confettiCtx.save();
+                        confettiCtx.translate(p.x, p.y);
+                        confettiCtx.rotate((p.rotation * Math.PI) / 180);
+                        confettiCtx.globalAlpha = Math.max(0, p.life);
+                        confettiCtx.fillStyle = p.color;
+                        confettiCtx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+                        confettiCtx.restore();
+                    }
+                });
+                if (alive) {
+                    confettiAnimationId = requestAnimationFrame(animateConfetti);
+                } else {
+                    confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+                }
+            }
+
+            // --- 3. Interactive 1-50 Roulette Engine ---
+            const canvas = document.getElementById('roulette-canvas');
+            const ctx = canvas.getContext('2d');
+            const spinBtn = document.getElementById('spin-btn');
+            const randomPickBtn = document.getElementById('random-pick-btn');
+            const lastNumberDisplay = document.getElementById('last-number-display');
+            const winnerModal = document.getElementById('winner-modal');
+            const modalWinnerNumber = document.getElementById('modal-winner-number');
+            const closeWinnerModalBtn = document.getElementById('close-winner-modal');
+
+            const numSegments = 50;
+            const segments = Array.from({ length: numSegments }, (_, i) => i + 1);
+            
+            // Color palette for 50 segments
+            const sliceColors = [
+                '#14532d', '#052e16', '#166534', '#15803d', '#16a34a',
+                '#1e293b', '#0f172a', '#1e3a8a', '#312e81', '#14532d'
+            ];
+
+            let currentAngle = 0;
+            let isSpinning = false;
+            let lastSignaledSegment = -1;
+
+            function drawWheel() {
+                const centerX = canvas.width / 2;
+                const centerY = canvas.height / 2;
+                const radius = canvas.width / 2 - 18;
+                const anglePerSegment = (2 * Math.PI) / numSegments;
+
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                // Outer decorative glow ring
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, radius + 12, 0, 2 * Math.PI);
+                ctx.strokeStyle = '#00ff66';
+                ctx.lineWidth = 3;
+                ctx.shadowColor = '#00ff66';
+                ctx.shadowBlur = 15;
+                ctx.stroke();
+                ctx.restore();
+
+                // Draw slices
+                for (let i = 0; i < numSegments; i++) {
+                    const startAngle = currentAngle + i * anglePerSegment;
+                    const endAngle = startAngle + anglePerSegment;
+
+                    ctx.beginPath();
+                    ctx.moveTo(centerX, centerY);
+                    ctx.arc(centerX, centerY, radius, startAngle, endAngle);
+                    ctx.closePath();
+
+                    // Alternating slice styling
+                    const colorIndex = i % sliceColors.length;
+                    ctx.fillStyle = (i % 2 === 0) ? sliceColors[colorIndex] : '#0b1f14';
+                    ctx.fill();
+
+                    ctx.lineWidth = 1;
+                    ctx.strokeStyle = 'rgba(74, 222, 128, 0.3)';
+                    ctx.stroke();
+
+                    // Numbers text
+                    ctx.save();
+                    ctx.translate(centerX, centerY);
+                    ctx.rotate(startAngle + anglePerSegment / 2);
+                    ctx.textAlign = 'right';
+                    ctx.fillStyle = (i % 2 === 0) ? '#00ff66' : '#e2e8f0';
+                    ctx.font = 'bold 10px Oswald, sans-serif';
+                    ctx.fillText(segments[i], radius - 14, 4);
+                    ctx.restore();
+                }
+
+                // Center hub
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, 38, 0, 2 * Math.PI);
+                ctx.fillStyle = '#0a0f0d';
+                ctx.fill();
+                ctx.lineWidth = 4;
+                ctx.strokeStyle = '#00ff66';
+                ctx.shadowColor = '#00ff66';
+                ctx.shadowBlur = 10;
+                ctx.stroke();
+
+                // Center Leaf Icon / Logo
+                ctx.fillStyle = '#00ff66';
+                ctx.font = 'bold 16px "Font Awesome 6 Free"';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText('\uf06c', centerX, centerY);
+                ctx.restore();
+            }
+
+            drawWheel();
+
+            function getWinningSegment() {
+                const anglePerSegment = (2 * Math.PI) / numSegments;
+                // Pointer is at Top ( -Math.PI / 2 )
+                let normalizedAngle = (-Math.PI / 2 - currentAngle) % (2 * Math.PI);
+                if (normalizedAngle < 0) normalizedAngle += 2 * Math.PI;
+                const winningIndex = Math.floor(normalizedAngle / anglePerSegment);
+                return segments[winningIndex];
+            }
+
+            function spinRoulette(targetNumber = null) {
+                if (isSpinning) return;
+                isSpinning = true;
+                spinBtn.disabled = true;
+                spinBtn.classList.add('opacity-60', 'cursor-not-allowed');
+
+                let targetSegmentIndex;
+                if (targetNumber !== null && targetNumber >= 1 && targetNumber <= 50) {
+                    targetSegmentIndex = targetNumber - 1;
+                } else {
+                    targetSegmentIndex = Math.floor(Math.random() * numSegments);
+                }
+
+                const anglePerSegment = (2 * Math.PI) / numSegments;
+                const fullSpins = 5 + Math.floor(Math.random() * 3); // 5 to 7 full rotations
+                
+                // Angle to align targetSegmentIndex under top pin (-Math.PI / 2)
+                const targetAngleOffset = -Math.PI / 2 - (targetSegmentIndex + 0.5) * anglePerSegment;
+                const totalRotation = fullSpins * 2 * Math.PI + (targetAngleOffset - (currentAngle % (2 * Math.PI)));
+
+                const duration = 4500; // ms
+                const startAngle = currentAngle;
+                const startTime = performance.now();
+
+                function animateSpin(currentTime) {
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    
+                    // Ease out cubic deceleration formula
+                    const easeOut = 1 - Math.pow(1 - progress, 3);
+                    currentAngle = startAngle + totalRotation * easeOut;
+
+                    // Play tick sound on segment transition
+                    const currentWinner = getWinningSegment();
+                    if (currentWinner !== lastSignaledSegment) {
+                        playTickSound();
+                        lastSignaledSegment = currentWinner;
+                    }
+
+                    drawWheel();
+
+                    if (progress < 1) {
+                        requestAnimationFrame(animateSpin);
+                    } else {
+                        isSpinning = false;
+                        spinBtn.disabled = false;
+                        spinBtn.classList.remove('opacity-60', 'cursor-not-allowed');
+
+                        const winningNumber = getWinningSegment();
+                        lastNumberDisplay.textContent = `#${winningNumber}`;
+                        modalWinnerNumber.textContent = `#${winningNumber}`;
+
+                        // Highlight number chip in grid
+                        highlightWinnerChip(winningNumber);
+
+                        // Sound & Confetti
+                        playFanfareSound();
+                        triggerConfetti();
+
+                        // Show Winner Modal
+                        winnerModal.classList.remove('hidden');
+                    }
+                }
+
+                requestAnimationFrame(animateSpin);
+            }
+
+            spinBtn.addEventListener('click', () => spinRoulette());
+            randomPickBtn.addEventListener('click', () => spinRoulette());
+            canvas.addEventListener('click', () => spinRoulette());
+
+            closeWinnerModalBtn.addEventListener('click', () => {
+                winnerModal.classList.add('hidden');
+            });
+            winnerModal.addEventListener('click', (e) => {
+                if (e.target === winnerModal) winnerModal.classList.add('hidden');
+            });
+
+            // --- 4. Interactive 1-50 Numbers Grid ---
+            const numbersGrid = document.getElementById('numbers-grid');
+            const selectedCount = document.getElementById('selected-count');
+            const clearSelectedBtn = document.getElementById('clear-selected-btn');
+            const selectedNumbers = new Set();
+
+            for (let i = 1; i <= 50; i++) {
+                const chip = document.createElement('button');
+                chip.id = `chip-${i}`;
+                chip.className = 'ticket-chip w-full aspect-square rounded-lg bg-gray-900 border border-cannabis-500/20 text-gray-300 font-bold text-xs sm:text-sm flex items-center justify-center hover:border-cannabis-400 hover:text-white transition-all';
+                chip.textContent = i;
+                
+                chip.addEventListener('click', () => {
+                    if (selectedNumbers.has(i)) {
+                        selectedNumbers.delete(i);
+                        chip.classList.remove('selected');
+                    } else {
+                        selectedNumbers.add(i);
+                        chip.classList.add('selected');
+                    }
+                    selectedCount.textContent = selectedNumbers.size;
+                });
+
+                numbersGrid.appendChild(chip);
+            }
+
+            clearSelectedBtn.addEventListener('click', () => {
+                selectedNumbers.clear();
+                selectedCount.textContent = 0;
+                document.querySelectorAll('.ticket-chip').forEach(c => c.classList.remove('selected'));
+            });
+
+            function highlightWinnerChip(num) {
+                document.querySelectorAll('.ticket-chip').forEach(c => c.classList.remove('winner-highlight'));
+                const chip = document.getElementById(`chip-${num}`);
+                if (chip) {
+                    chip.classList.add('winner-highlight');
+                    chip.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+            }
+
+            // --- 5. Transparent Glass Floating Bubble Carousel ---
+            const carouselTrack = document.getElementById('carousel-track');
+            const carouselPrev = document.getElementById('carousel-prev');
+            const carouselNext = document.getElementById('carousel-next');
+            const carouselDots = document.getElementById('carousel-dots');
+
+            // Select 10 curated images from the 35 gallery images
+            const carouselImages = [1, 2, 5, 8, 12, 16, 20, 24, 28, 32];
+            let currentIndex = 0;
+            let cardsPerPage = 3;
+
+            function updateCardsPerPage() {
+                if (window.innerWidth < 640) cardsPerPage = 1;
+                else if (window.innerWidth < 1024) cardsPerPage = 2;
+                else cardsPerPage = 3;
+            }
+            updateCardsPerPage();
+            window.addEventListener('resize', () => {
+                updateCardsPerPage();
+                renderCarousel();
+            });
+
+            function renderCarousel() {
+                carouselTrack.innerHTML = '';
+                carouselDots.innerHTML = '';
+
+                carouselImages.forEach((imgNum, idx) => {
+                    const card = document.createElement('div');
+                    // Alternate floating animations for organic bubble effect
+                    const animClass = idx % 2 === 0 ? 'animate-bubble-float' : 'animate-bubble-float-delayed';
+                    
+                    card.className = `shrink-0 w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] ${animClass}`;
+                    
+                    card.innerHTML = `
+                        <div class="glass-card glass-card-hover p-4 rounded-3xl border border-cannabis-500/30 flex flex-col h-full group cursor-pointer modal-trigger-card" data-img-src="https://raw.githubusercontent.com/esquejenzon/Imagen/main/${imgNum}.jpeg">
+                            <div class="relative overflow-hidden rounded-2xl aspect-[4/3] mb-4">
+                                <img src="https://raw.githubusercontent.com/esquejenzon/Imagen/main/${imgNum}.jpeg" alt="Registro Esquejenzon ${imgNum}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" onerror="this.src='https://placehold.co/500x375/111827/4ade80?text=Foto+${imgNum}';">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-80 group-hover:opacity-60 transition-opacity"></div>
+                                <span class="absolute top-3 left-3 bg-black/60 backdrop-blur-md border border-cannabis-500/40 text-cannabis-300 text-[10px] font-mono font-bold px-2.5 py-1 rounded-full">
+                                    <i class="fa-solid fa-leaf text-cannabis-400"></i> Registro #${imgNum}
+                                </span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h4 class="text-white font-bold text-base font-heading">Cultivo Esquejenzon</h4>
+                                    <p class="text-xs text-gray-400">Genéticas & Selecciones Pro</p>
+                                </div>
+                                <span class="w-9 h-9 rounded-full bg-cannabis-500/20 group-hover:bg-cannabis-400 text-cannabis-400 group-hover:text-black flex items-center justify-center transition-colors">
+                                    <i class="fa-solid fa-expand text-xs"></i>
+                                </span>
+                            </div>
+                        </div>
+                    `;
+
+                    // Click event to expand in modal
+                    card.querySelector('.modal-trigger-card').addEventListener('click', (e) => {
+                        openModal(`https://raw.githubusercontent.com/esquejenzon/Imagen/main/${imgNum}.jpeg`);
+                    });
+
+                    carouselTrack.appendChild(card);
+                });
+
+                // Render Dots
+                const maxIndex = carouselImages.length - cardsPerPage;
+                for (let i = 0; i <= maxIndex; i++) {
+                    const dot = document.createElement('button');
+                    dot.className = `w-3 h-3 rounded-full transition-all ${i === currentIndex ? 'bg-cannabis-neon w-6 shadow-[0_0_10px_#00ff66]' : 'bg-gray-700 hover:bg-gray-500'}`;
+                    dot.addEventListener('click', () => {
+                        currentIndex = i;
+                        moveCarousel();
+                    });
+                    carouselDots.appendChild(dot);
+                }
+
+                moveCarousel();
+            }
+
+            function moveCarousel() {
+                const maxIndex = carouselImages.length - cardsPerPage;
+                if (currentIndex < 0) currentIndex = 0;
+                if (currentIndex > maxIndex) currentIndex = maxIndex;
+
+                const cardWidthPercentage = 100 / cardsPerPage;
+                carouselTrack.style.transform = `translateX(-${currentIndex * cardWidthPercentage}%)`;
+
+                // Update dots
+                Array.from(carouselDots.children).forEach((dot, idx) => {
+                    if (idx === currentIndex) {
+                        dot.className = 'w-6 h-3 rounded-full bg-cannabis-neon shadow-[0_0_10px_#00ff66] transition-all';
+                    } else {
+                        dot.className = 'w-3 h-3 rounded-full bg-gray-700 hover:bg-gray-500 transition-all';
+                    }
+                });
+            }
+
+            carouselNext.addEventListener('click', () => {
+                const maxIndex = carouselImages.length - cardsPerPage;
+                currentIndex = currentIndex < maxIndex ? currentIndex + 1 : 0;
+                moveCarousel();
+            });
+
+            carouselPrev.addEventListener('click', () => {
+                const maxIndex = carouselImages.length - cardsPerPage;
+                currentIndex = currentIndex > 0 ? currentIndex - 1 : maxIndex;
+                moveCarousel();
+            });
+
+            // Autoplay carousel
+            let carouselTimer = setInterval(() => {
+                const maxIndex = carouselImages.length - cardsPerPage;
+                currentIndex = currentIndex < maxIndex ? currentIndex + 1 : 0;
+                moveCarousel();
+            }, 4500);
+
+            carouselTrack.addEventListener('mouseenter', () => clearInterval(carouselTimer));
+            carouselTrack.addEventListener('mouseleave', () => {
+                carouselTimer = setInterval(() => {
+                    const maxIndex = carouselImages.length - cardsPerPage;
+                    currentIndex = currentIndex < maxIndex ? currentIndex + 1 : 0;
+                    moveCarousel();
+                }, 4500);
+            });
+
+            renderCarousel();
+
+            // --- 6. General Gallery & Image Modal Logic ---
             const modal = document.getElementById('image-modal');
             const modalImg = document.getElementById('modal-image');
             const closeModalBtn = document.getElementById('close-modal');
@@ -330,7 +1176,7 @@
                 if (modal && modalImg) {
                     modalImg.src = imgSrc;
                     modal.classList.remove('hidden');
-                    document.body.style.overflow = 'hidden'; // Evita el scroll del fondo
+                    document.body.style.overflow = 'hidden';
                 }
             }
 
@@ -340,46 +1186,44 @@
                     document.body.style.overflow = 'auto';
                 }
             }
-            
-            if(closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
-            if(modal) modal.addEventListener('click', (e) => {
-                // Cierra el modal si se hace clic en el fondo (el propio div del modal)
-                if (e.target === modal) {
-                    closeModal();
-                }
+
+            if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
+            if (modal) {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeModal();
+                });
+            }
+
+            document.querySelectorAll('.modal-trigger').forEach(img => {
+                img.addEventListener('click', () => openModal(img.src));
             });
 
-            // --- Lógica General ---
-            document.getElementById('year').textContent = new Date().getFullYear();
-
+            // Populate Gallery Masonry (35 images)
             const galleryContainer = document.getElementById('gallery-container');
             if (galleryContainer) {
                 const totalImages = 35;
                 for (let i = 1; i <= totalImages; i++) {
                     const wrapper = document.createElement('div');
-                    // Se agrega cursor-pointer para indicar que es clickeable
-                    wrapper.className = 'overflow-hidden rounded-lg shadow-lg gallery-image-wrapper break-inside-avoid cursor-pointer';
+                    wrapper.className = 'overflow-hidden rounded-2xl glass-card border border-cannabis-500/20 gallery-image-wrapper break-inside-avoid cursor-pointer group hover:scale-[1.03] transition-all duration-300';
                     
                     const img = document.createElement('img');
                     img.src = `https://raw.githubusercontent.com/esquejenzon/Imagen/main/${i}.jpeg`;
                     img.alt = `Imagen de cultivo ${i}`;
                     img.loading = 'lazy';
-                    img.className = 'w-full h-auto object-cover block';
+                    img.className = 'w-full h-auto object-cover block group-hover:brightness-110 transition-all';
                     img.onerror = function() {
                         this.onerror = null;
                         this.src = `https://placehold.co/400x400/111827/4ade80?text=Imagen+${i}`;
-                        this.alt = `Error al cargar imagen ${i}`;
                     };
 
-                    // Se agrega el evento de click al contenedor de la imagen
-                    wrapper.addEventListener('click', () => {
-                        openModal(img.src);
-                    });
-                    
+                    wrapper.addEventListener('click', () => openModal(img.src));
                     wrapper.appendChild(img);
                     galleryContainer.appendChild(wrapper);
                 }
             }
+
+            // Footer year update
+            document.getElementById('year').textContent = new Date().getFullYear();
         });
     </script>
 </body>
