@@ -219,6 +219,95 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #22c55e;
         }
+
+        /* Participant Name Light Beam / Shimmer Flash */
+        @keyframes textLightSweep {
+            0% {
+                background-position: -250% 0;
+            }
+            100% {
+                background-position: 250% 0;
+            }
+        }
+
+        .name-light-flash {
+            display: inline-block;
+            position: relative;
+            font-weight: 700;
+            background: linear-gradient(
+                110deg,
+                #94a3b8 0%,
+                #cbd5e1 20%,
+                #ffffff 40%,
+                #00ff66 48%,
+                #ffffff 54%,
+                #f1f5f9 65%,
+                #94a3b8 100%
+            );
+            background-size: 250% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textLightSweep 3.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+            filter: drop-shadow(0 0 8px rgba(0, 255, 102, 0.4));
+            letter-spacing: 0.02em;
+        }
+
+        @supports not (background-clip: text) {
+            .name-light-flash {
+                color: #00ff66;
+            }
+        }
+
+        /* Staggered animation delays for organic natural gleaming */
+        .participant-item:nth-child(5n+1) .name-light-flash,
+        .grid-participant-card:nth-child(5n+1) .name-light-flash { animation-delay: 0s; }
+        .participant-item:nth-child(5n+2) .name-light-flash,
+        .grid-participant-card:nth-child(5n+2) .name-light-flash { animation-delay: 0.6s; }
+        .participant-item:nth-child(5n+3) .name-light-flash,
+        .grid-participant-card:nth-child(5n+3) .name-light-flash { animation-delay: 1.2s; }
+        .participant-item:nth-child(5n+4) .name-light-flash,
+        .grid-participant-card:nth-child(5n+4) .name-light-flash { animation-delay: 1.8s; }
+        .participant-item:nth-child(5n)   .name-light-flash,
+        .grid-participant-card:nth-child(5n)   .name-light-flash { animation-delay: 2.4s; }
+
+        /* Fast gleaming flash on hover or when winner */
+        .participant-item:hover .name-light-flash,
+        .grid-participant-card:hover .name-light-flash,
+        .active-winner .name-light-flash,
+        #modal-winner-name.name-light-flash {
+            animation-duration: 1.3s;
+            background-size: 180% 100%;
+            filter: drop-shadow(0 0 14px rgba(0, 255, 102, 0.95));
+        }
+
+        /* Card Light Sheen Effect */
+        .participant-card-sheen {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .participant-card-sheen::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(0, 255, 102, 0.08),
+                rgba(255, 255, 255, 0.2),
+                rgba(0, 255, 102, 0.08),
+                transparent
+            );
+            transform: skewX(-25deg);
+            pointer-events: none;
+            transition: 0.75s ease;
+        }
+        .participant-card-sheen:hover::after {
+            left: 170%;
+        }
     </style>
 </head>
 <body class="antialiased text-gray-200 selection:bg-cannabis-500 selection:text-black">
@@ -250,15 +339,18 @@
             </div>
 
             <!-- Nav Links -->
-            <div class="flex items-center gap-4 text-sm font-medium">
+            <div class="flex items-center gap-3 sm:gap-4 text-sm font-medium">
                 <a href="#rifa-ruleta" class="hover:text-cannabis-400 transition-colors flex items-center gap-1.5 text-cannabis-300 font-semibold">
                     <i class="fa-solid fa-dice text-cannabis-400"></i> Ruleta 1-50
                 </a>
-                <a href="#carrusel-burbuja" class="hover:text-cannabis-400 transition-colors hidden sm:inline-block">
-                    Galería Flotante
+                <a href="#listado-participantes" class="hover:text-cannabis-400 transition-colors flex items-center gap-1.5 text-cannabis-300 font-semibold">
+                    <i class="fa-solid fa-users text-cannabis-400"></i> <span class="hidden sm:inline">Participantes</span> (50)
                 </a>
-                <a href="#historia" class="hover:text-cannabis-400 transition-colors hidden sm:inline-block">
-                    Historia
+                <a href="#accesorios" class="hover:text-cannabis-400 transition-colors hidden md:inline-block">
+                    Premios
+                </a>
+                <a href="#carrusel-burbuja" class="hover:text-cannabis-400 transition-colors hidden lg:inline-block">
+                    Galería
                 </a>
                 <a href="#rifa-ruleta" class="bg-gradient-to-r from-cannabis-600 to-cannabis-400 hover:from-cannabis-500 hover:to-cannabis-300 text-black font-bold px-4 py-2 rounded-xl transition-all transform hover:scale-105 shadow-md shadow-cannabis-500/20 flex items-center gap-2">
                     <i class="fa-solid fa-ticket"></i> Sorteos
@@ -277,10 +369,12 @@
         <div class="max-w-5xl mx-auto text-center relative z-20">
             
             <!-- Badge Legal REPROCANN -->
-            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel border-cannabis-400/40 text-cannabis-300 text-xs sm:text-sm mb-6 animate-pulse">
+            <div class="inline-flex flex-wrap items-center justify-center gap-2 px-4 py-2 rounded-full glass-panel border-cannabis-400/40 text-cannabis-300 text-xs sm:text-sm mb-6 animate-pulse">
                 <span class="w-2.5 h-2.5 rounded-full bg-cannabis-neon shadow-[0_0_10px_#00ff66]"></span>
                 <i class="fa-solid fa-gavel text-cannabis-400"></i>
-                <span class="font-medium">100% Legal & Transparente • Ajustado a Normativa REPROCANN</span>
+                <span class="font-medium">100% Legal & Transparente • REPROCANN</span>
+                <span class="text-gray-500 hidden sm:inline">•</span>
+                <span class="text-cannabis-neon font-bold"><i class="fa-solid fa-check-double mr-1"></i>50 Números Confirmados</span>
             </div>
 
             <!-- Title -->
@@ -289,7 +383,7 @@
             </h1>
 
             <p class="text-lg sm:text-xl text-gray-300 max-w-3xl mx-auto mb-8 font-light leading-relaxed">
-                ¡Participá en los sorteos oficiales de la comunidad! Números del <strong class="text-cannabis-400 font-bold">1 al 50</strong>. 
+                ¡Participá en los sorteos oficiales de la comunidad! Números del <strong class="text-cannabis-400 font-bold">1 al 50</strong> completos con participantes asignados. 
                 Premios únicos de parafernalia, insumos de cultivo de alta gama y merchandising exclusivo para cultivadores.
             </p>
 
@@ -320,9 +414,13 @@
                     <i class="fa-solid fa-dharmachakra text-xl animate-spin-slow"></i>
                     <span>IR A LA RULETA 1-50</span>
                 </a>
+                <a href="#listado-participantes" class="glass-card hover:bg-white/10 text-white font-semibold text-base px-6 py-4 rounded-2xl transition-all border border-cannabis-500/40 flex items-center gap-2 group">
+                    <i class="fa-solid fa-users text-cannabis-400 group-hover:scale-110 transition-transform"></i>
+                    <span>Ver Participantes (50)</span>
+                </a>
                 <a href="#accesorios" class="glass-card hover:bg-white/10 text-white font-semibold text-base px-6 py-4 rounded-2xl transition-all border border-cannabis-500/30 flex items-center gap-2">
                     <i class="fa-solid fa-gift text-cannabis-400"></i>
-                    <span>Ver Premios</span>
+                    <span>Premios</span>
                 </a>
             </div>
 
@@ -370,39 +468,100 @@
                                 <i class="fa-solid fa-shuffle"></i>
                                 <span class="sm:hidden">Azar</span>
                             </button>
+
+                            <button id="sound-toggle-btn" title="Activar/Silenciar sonido" class="w-full sm:w-auto bg-gray-800 hover:bg-gray-700 text-cannabis-300 font-semibold py-4 px-4 rounded-2xl border border-cannabis-500/30 transition-all flex items-center justify-center">
+                                <i id="sound-icon" class="fa-solid fa-volume-high"></i>
+                            </button>
                         </div>
 
-                        <!-- Last Result Display -->
-                        <div class="mt-4 text-center bg-black/60 w-full py-2.5 px-4 rounded-xl border border-cannabis-900 flex items-center justify-between">
-                            <span class="text-xs text-gray-400 uppercase font-mono">Último Número Ganador:</span>
-                            <span id="last-number-display" class="text-xl font-bold text-cannabis-neon font-heading">#--</span>
+                        <!-- Live Pointer & Result HUD -->
+                        <div class="mt-4 w-full bg-black/75 p-3.5 sm:p-4 rounded-2xl border border-cannabis-500/30 flex flex-col gap-2.5 shadow-lg">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs text-gray-400 uppercase font-mono flex items-center gap-1.5">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-cannabis-neon animate-pulse shadow-[0_0_8px_#00ff66]"></span>
+                                    Puntero en Ruleta:
+                                </span>
+                                <div class="flex items-center gap-2">
+                                    <span id="live-target-number" class="text-xs font-mono font-bold bg-cannabis-900 text-cannabis-neon px-2.5 py-0.5 rounded border border-cannabis-500/40">#01</span>
+                                    <span id="live-target-name" class="name-light-flash text-sm sm:text-base font-bold">Leo Pichu</span>
+                                </div>
+                            </div>
+                            <div class="pt-2 border-t border-cannabis-900/80 flex items-center justify-between">
+                                <span class="text-xs text-gray-400 uppercase font-mono">Último Ganador:</span>
+                                <div class="flex items-center gap-2">
+                                    <span id="last-number-display" class="text-sm font-bold text-cannabis-neon font-heading">#--</span>
+                                    <span id="last-name-display" class="name-light-flash text-sm font-bold">Aún no se ha girado</span>
+                                </div>
+                            </div>
                         </div>
 
                     </div>
                 </div>
 
-                <!-- Right Column: Interactive 1-50 Number Ticket Grid & Rules -->
+                <!-- Right Column: Interactive 1-50 Number Ticket Grid, Search & Participant Directory -->
                 <div class="lg:col-span-5 flex flex-col gap-6">
                     
-                    <!-- Ticket Grid Panel -->
-                    <div class="glass-panel p-6 rounded-3xl border border-cannabis-500/30">
-                        <div class="flex items-center justify-between mb-4">
-                            <h3 class="text-xl font-bold text-white flex items-center gap-2 font-heading">
-                                <i class="fa-solid fa-table-cells text-cannabis-400"></i> Tablero del 1 al 50
+                    <!-- Participant Panel -->
+                    <div class="glass-panel p-5 sm:p-6 rounded-3xl border border-cannabis-500/30 relative">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-lg sm:text-xl font-bold text-white flex items-center gap-2 font-heading">
+                                <i class="fa-solid fa-users text-cannabis-400"></i> Participantes & Tablero
                             </h3>
-                            <span class="text-xs text-cannabis-400 font-mono">50 Números Disponibles</span>
-                        </div>
-                        <p class="text-xs text-gray-400 mb-4">Hacé clic en cualquier número para simular tu ticket de la Rifa Esquejenzon:</p>
-                        
-                        <!-- 1 to 50 Grid -->
-                        <div id="numbers-grid" class="grid grid-cols-10 gap-1.5 sm:gap-2 max-h-[300px] overflow-y-auto pr-1">
-                            <!-- JS generates 50 chips here -->
+                            <span class="text-xs text-cannabis-300 font-mono bg-cannabis-950 px-2.5 py-1 rounded-full border border-cannabis-500/40">
+                                50/50 Confirmados
+                            </span>
                         </div>
 
-                        <!-- Selected Tickets Box -->
-                        <div class="mt-4 pt-4 border-t border-cannabis-900 flex items-center justify-between text-xs text-gray-300">
-                            <span>Tu Selección: <strong id="selected-count" class="text-cannabis-400 font-bold">0</strong> números</span>
-                            <button id="clear-selected-btn" class="text-gray-400 hover:text-red-400 transition-colors">Limpiar</button>
+                        <!-- Search Bar -->
+                        <div class="relative mb-3">
+                            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-xs"></i>
+                            <input type="text" id="side-search-input" placeholder="Buscar por nombre o número (ej: Leo, Basty, 14)..." class="w-full bg-black/60 border border-cannabis-500/30 rounded-xl pl-9 pr-3 py-2 text-xs text-white placeholder-gray-400 focus:outline-none focus:border-cannabis-400 transition-colors">
+                        </div>
+
+                        <!-- Tab Controls: Lista vs Tablero -->
+                        <div class="flex items-center gap-2 mb-3 bg-black/50 p-1 rounded-xl border border-cannabis-900">
+                            <button id="tab-list-btn" class="flex-1 py-1.5 px-3 rounded-lg text-xs font-bold transition-all bg-cannabis-500 text-black shadow-md flex items-center justify-center gap-1.5">
+                                <i class="fa-solid fa-list-ol"></i>
+                                <span>Lista con Nombres</span>
+                            </button>
+                            <button id="tab-grid-btn" class="flex-1 py-1.5 px-3 rounded-lg text-xs font-semibold text-gray-300 hover:text-white transition-all flex items-center justify-center gap-1.5">
+                                <i class="fa-solid fa-table-cells"></i>
+                                <span>Tablero Cuadrícula</span>
+                            </button>
+                        </div>
+
+                        <!-- VIEW 1: Participants List with Live Light Flash on Names -->
+                        <div id="side-list-view" class="max-h-[310px] overflow-y-auto pr-1 space-y-2">
+                            <!-- Populated dynamically by JS with .name-light-flash -->
+                        </div>
+
+                        <!-- VIEW 2: 1 to 50 Grid -->
+                        <div id="side-grid-view" class="hidden">
+                            <p class="text-[11px] text-gray-400 mb-2">Hacé clic en cualquier número para ver el participante asignado:</p>
+                            <div id="numbers-grid" class="grid grid-cols-10 gap-1.5 sm:gap-2 max-h-[250px] overflow-y-auto pr-1">
+                                <!-- JS generates 50 chips here -->
+                            </div>
+                            
+                            <!-- Selected chip preview box -->
+                            <div id="grid-preview-box" class="mt-3 p-2.5 bg-black/60 rounded-xl border border-cannabis-500/20 text-xs flex items-center justify-between">
+                                <span class="text-gray-400">Seleccioná un casillero para ver su titular</span>
+                                <span class="text-cannabis-400 font-bold">1-50</span>
+                            </div>
+
+                            <!-- Selected Tickets Box -->
+                            <div class="mt-3 pt-3 border-t border-cannabis-900 flex items-center justify-between text-xs text-gray-300">
+                                <span>Tu Selección: <strong id="selected-count" class="text-cannabis-400 font-bold">0</strong> números</span>
+                                <button id="clear-selected-btn" class="text-gray-400 hover:text-red-400 transition-colors">Limpiar</button>
+                            </div>
+                        </div>
+
+                        <!-- Quick Action Footer -->
+                        <div class="mt-3 pt-3 border-t border-cannabis-900/80 flex items-center justify-between text-xs text-gray-400">
+                            <span id="side-list-count" class="font-mono text-cannabis-300">50 números activos</span>
+                            <a href="#listado-participantes" class="text-cannabis-400 hover:text-cannabis-300 font-semibold flex items-center gap-1 text-xs">
+                                <span>Ver catálogo 50 completo</span>
+                                <i class="fa-solid fa-arrow-down text-[10px]"></i>
+                            </a>
                         </div>
                     </div>
 
@@ -432,6 +591,67 @@
 
                 </div>
 
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECTION: LISTADO OFICIAL DE PARTICIPANTES RIFA ESQUEJENZON -->
+    <section id="listado-participantes" class="py-16 px-4 relative z-20 bg-gradient-to-b from-black/80 via-[#0a140f] to-black/90 border-t border-b border-cannabis-900/60">
+        <div class="max-w-7xl mx-auto">
+            
+            <div class="text-center mb-10">
+                <span class="text-cannabis-400 text-xs uppercase tracking-widest font-bold px-3 py-1 rounded-full bg-cannabis-950 border border-cannabis-500/30">
+                    <i class="fa-solid fa-clipboard-check"></i> Registro Oficial Esquejenzon
+                </span>
+                <h2 class="text-4xl md:text-5xl font-bold uppercase text-white mt-3 font-heading">
+                    LISTADO OFICIAL DE <span class="text-cannabis-400">PARTICIPANTES</span>
+                </h2>
+                <p class="text-gray-300 max-w-2xl mx-auto mt-2 text-sm sm:text-base">
+                    Comprobá los 50 números asignados de la rifa. Cada nombre cuenta con el destello de luz oficial y podés probar tu suerte directamente en la ruleta haciendo clic en cualquier tarjeta.
+                </p>
+            </div>
+
+            <!-- Stats Bar -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                <div class="glass-card p-4 rounded-2xl text-center border border-cannabis-500/20">
+                    <span class="text-2xl sm:text-3xl font-extrabold text-cannabis-neon font-heading block">50</span>
+                    <span class="text-xs text-gray-400 uppercase font-mono">Números en Juego</span>
+                </div>
+                <div class="glass-card p-4 rounded-2xl text-center border border-cannabis-500/20">
+                    <span class="text-2xl sm:text-3xl font-extrabold text-cannabis-400 font-heading block">28</span>
+                    <span class="text-xs text-gray-400 uppercase font-mono">Cultivadores Únicos</span>
+                </div>
+                <div class="glass-card p-4 rounded-2xl text-center border border-cannabis-500/20">
+                    <span class="text-2xl sm:text-3xl font-extrabold text-yellow-400 font-heading block">3</span>
+                    <span class="text-xs text-gray-400 uppercase font-mono">Kits Exclusivos</span>
+                </div>
+                <div class="glass-card p-4 rounded-2xl text-center border border-cannabis-500/20">
+                    <span class="text-2xl sm:text-3xl font-extrabold text-emerald-400 font-heading block">100%</span>
+                    <span class="text-xs text-gray-400 uppercase font-mono">Legal REPROCANN</span>
+                </div>
+            </div>
+
+            <!-- Search & Filter Controls -->
+            <div class="glass-panel p-4 rounded-2xl mb-8 flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="relative w-full md:w-96">
+                    <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+                    <input type="text" id="main-search-input" placeholder="Buscar participante o número (ej. Sheyla, Fede, 21)..." class="w-full bg-black/60 border border-cannabis-500/30 rounded-xl pl-11 pr-4 py-2.5 text-sm text-white placeholder-gray-400 focus:outline-none focus:border-cannabis-400 transition-colors">
+                </div>
+                <div class="flex items-center gap-2 w-full md:w-auto overflow-x-auto pb-1 md:pb-0">
+                    <button id="filter-all-btn" class="px-4 py-2 rounded-xl text-xs font-bold bg-cannabis-500 text-black transition-all shrink-0">
+                        Todos (50)
+                    </button>
+                    <button id="filter-multi-btn" class="px-4 py-2 rounded-xl text-xs font-semibold bg-gray-800 hover:bg-gray-700 text-cannabis-300 border border-cannabis-500/30 transition-all shrink-0">
+                        <i class="fa-solid fa-layer-group mr-1"></i> Múltiples Números
+                    </button>
+                    <span id="main-search-count" class="text-xs text-gray-400 font-mono ml-2 shrink-0">50 números</span>
+                </div>
+            </div>
+
+            <!-- Participants Cards Grid -->
+            <div id="participants-main-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3.5">
+                <!-- Injected dynamically by JS with .participant-card-sheen and .name-light-flash -->
             </div>
 
         </div>
@@ -673,27 +893,36 @@
 
     <!-- MODAL GANADOR DE RULETA -->
     <div id="winner-modal" class="hidden fixed inset-0 bg-black/85 backdrop-blur-lg flex items-center justify-center z-[100] p-4">
-        <div class="glass-card max-w-md w-full p-8 rounded-3xl border-2 border-cannabis-neon text-center relative shadow-[0_0_50px_rgba(0,255,102,0.4)] animate-bounce-short">
+        <div class="glass-card max-w-md w-full p-6 sm:p-8 rounded-3xl border-2 border-cannabis-neon text-center relative shadow-[0_0_50px_rgba(0,255,102,0.4)] animate-bounce-short">
             
-            <div class="w-20 h-20 mx-auto rounded-full bg-gradient-to-tr from-cannabis-neon to-cannabis-500 flex items-center justify-center text-black text-4xl mb-4 shadow-lg shadow-cannabis-neon/50">
+            <div class="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-full bg-gradient-to-tr from-cannabis-neon to-cannabis-500 flex items-center justify-center text-black text-3xl sm:text-4xl mb-3 sm:mb-4 shadow-lg shadow-cannabis-neon/50">
                 <i class="fa-solid fa-trophy"></i>
             </div>
 
-            <h3 class="text-3xl font-extrabold text-white uppercase font-heading mb-1">¡NÚMERO SALIDOR!</h3>
-            <p class="text-xs text-cannabis-300 font-mono tracking-widest uppercase mb-4">Sorteo Rifa Esquejenzon 1-50</p>
+            <h3 class="text-2xl sm:text-3xl font-extrabold text-white uppercase font-heading mb-1">¡TICKET SALIDOR!</h3>
+            <p class="text-xs text-cannabis-300 font-mono tracking-widest uppercase mb-4">Sorteo Gran Rifa Esquejenzon 1-50</p>
 
-            <div class="bg-black/70 py-4 px-6 rounded-2xl border border-cannabis-500/40 mb-6">
-                <span class="text-gray-400 text-xs block mb-1">NÚMERO GANADOR DE LA RULETA</span>
-                <span id="modal-winner-number" class="text-6xl font-black text-cannabis-neon font-heading drop-shadow-[0_0_15px_#00ff66]">#--</span>
+            <div class="bg-black/80 py-4 sm:py-5 px-5 rounded-2xl border border-cannabis-500/50 mb-5 shadow-[0_0_20px_rgba(0,255,102,0.2)]">
+                <span class="text-gray-400 text-[11px] sm:text-xs uppercase tracking-wider block mb-1 font-mono">NÚMERO GANADOR</span>
+                <span id="modal-winner-number" class="text-5xl sm:text-6xl font-black text-cannabis-neon font-heading drop-shadow-[0_0_15px_#00ff66] block">#--</span>
+                
+                <div class="mt-3 pt-3 border-t border-cannabis-900/80">
+                    <span class="text-[11px] sm:text-xs text-gray-400 block mb-1 font-mono uppercase tracking-wider">PARTICIPANTE TITULAR:</span>
+                    <span id="modal-winner-name" class="name-light-flash text-2xl sm:text-3xl font-extrabold uppercase font-heading block tracking-wide">--</span>
+                </div>
             </div>
 
-            <p class="text-xs text-gray-300 mb-6 leading-relaxed">
-                ¡Felicidades! Si tenés este número asignado para la rifa del kit de accesorios de cultivador, ponete en contacto para coordinar el retiro de tu premio.
+            <p class="text-xs text-gray-300 mb-5 leading-relaxed">
+                ¡Muchas felicitaciones! Si este es tu número asignado en la lista oficial de Esquejenzon, ponete en contacto para coordinar la entrega de tu kit de accesorios.
             </p>
 
-            <div class="flex flex-col gap-3">
-                <button id="close-winner-modal" class="w-full bg-gradient-to-r from-cannabis-400 to-cannabis-500 hover:from-cannabis-300 hover:to-cannabis-400 text-black font-extrabold py-3.5 px-6 rounded-xl transition-all shadow-md shadow-cannabis-500/30">
-                    ¡ENTENDIDO Y CONTINUAR!
+            <div class="flex flex-col gap-2.5">
+                <a id="modal-whatsapp-share" href="#" target="_blank" rel="noopener noreferrer" class="w-full bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-400 hover:to-green-500 text-black font-extrabold py-3.5 px-4 rounded-xl transition-all shadow-lg shadow-emerald-500/30 flex items-center justify-center gap-2 text-sm">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span>COMPARTIR GANADOR POR WHATSAPP</span>
+                </a>
+                <button id="close-winner-modal" class="w-full bg-gray-800 hover:bg-gray-700 text-white font-bold py-3 px-4 rounded-xl transition-all border border-cannabis-500/30 text-sm">
+                    Cerrar y Seguir Jugando
                 </button>
             </div>
         </div>
@@ -706,9 +935,85 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             
+            // --- 0. Oficial Roster: Listado de Participantes 1 al 50 (listado_rifa_esquejenzon-1.txt) ---
+            const participantsData = [
+                { number: 1, name: "Leo Pichu" },
+                { number: 2, name: "Esteban Tetu" },
+                { number: 3, name: "Sheyla Perrone" },
+                { number: 4, name: "Quique.cam" },
+                { number: 5, name: "Juanma Veneno" },
+                { number: 6, name: "Kilmegrow" },
+                { number: 7, name: "Augusto Giménez" },
+                { number: 8, name: "Ladywe3d" },
+                { number: 9, name: "Florencia Romero" },
+                { number: 10, name: "Señor X" },
+                { number: 11, name: "Kilmegrow" },
+                { number: 12, name: "Gonzalo Rodríguez" },
+                { number: 13, name: "Jorge Calvo" },
+                { number: 14, name: "Hernán Bonahora" },
+                { number: 15, name: "Fede Guido" },
+                { number: 16, name: "Agustín Villavicencio" },
+                { number: 17, name: "Basty.03" },
+                { number: 18, name: "Levin Toledo" },
+                { number: 19, name: "Fede Guido" },
+                { number: 20, name: "Lucas Gómez" },
+                { number: 21, name: "Iván Zoder" },
+                { number: 22, name: "Ariel Gustavo" },
+                { number: 23, name: "Lucas Gómez" },
+                { number: 24, name: "Franco Flores" },
+                { number: 25, name: "Juanma Veneno" },
+                { number: 26, name: "Iván Zoder" },
+                { number: 27, name: "Sheyla Perrone" },
+                { number: 28, name: "Mauro González" },
+                { number: 29, name: "Fede Guido" },
+                { number: 30, name: "Marcelo Mantenimiento" },
+                { number: 31, name: "Ariel Gustavo" },
+                { number: 32, name: "Iván Kuok" },
+                { number: 33, name: "Quique.cam" },
+                { number: 34, name: "Daniel Murata" },
+                { number: 35, name: "La Cajita Smoke" },
+                { number: 36, name: "Hernán Bonahora" },
+                { number: 37, name: "Emanuel Mansilla" },
+                { number: 38, name: "Basty" },
+                { number: 39, name: "Basty" },
+                { number: 40, name: "Lucas Infe" },
+                { number: 41, name: "Javier Suárez" },
+                { number: 42, name: "Catamarca" },
+                { number: 43, name: "Daniel Murata" },
+                { number: 44, name: "Colorado" },
+                { number: 45, name: "Emanuel Mansilla" },
+                { number: 46, name: "Elda Zuares" },
+                { number: 47, name: "Quique.cam" },
+                { number: 48, name: "Basty" },
+                { number: 49, name: "Basty" },
+                { number: 50, name: "Basty.03" }
+            ];
+
+            const participantCounts = {};
+            participantsData.forEach(p => {
+                participantCounts[p.name] = (participantCounts[p.name] || 0) + 1;
+            });
+
             // --- 1. Audio Sound Effects (Web Audio API Synthesizer) ---
             const AudioCtx = window.AudioContext || window.webkitAudioContext;
             let audioCtx = null;
+            let isMuted = false;
+
+            const soundToggleBtn = document.getElementById('sound-toggle-btn');
+            const soundIcon = document.getElementById('sound-icon');
+            if (soundToggleBtn && soundIcon) {
+                soundToggleBtn.addEventListener('click', () => {
+                    isMuted = !isMuted;
+                    if (isMuted) {
+                        soundIcon.className = 'fa-solid fa-volume-xmark text-gray-400';
+                        soundToggleBtn.classList.add('opacity-60');
+                    } else {
+                        soundIcon.className = 'fa-solid fa-volume-high text-cannabis-300';
+                        soundToggleBtn.classList.remove('opacity-60');
+                        playTickSound();
+                    }
+                });
+            }
 
             function getAudioContext() {
                 if (!audioCtx) {
@@ -721,6 +1026,7 @@
             }
 
             function playTickSound() {
+                if (isMuted) return;
                 try {
                     const ctx = getAudioContext();
                     const osc = ctx.createOscillator();
@@ -738,6 +1044,7 @@
             }
 
             function playFanfareSound() {
+                if (isMuted) return;
                 try {
                     const ctx = getAudioContext();
                     const notes = [261.63, 329.63, 392.00, 523.25, 659.25, 783.99];
@@ -799,7 +1106,7 @@
                         alive = true;
                         p.x += p.vx;
                         p.y += p.vy;
-                        p.vy += 0.35; // gravity
+                        p.vy += 0.35;
                         p.rotation += p.vRot;
                         p.life -= p.decay;
 
@@ -824,15 +1131,19 @@
             const ctx = canvas.getContext('2d');
             const spinBtn = document.getElementById('spin-btn');
             const randomPickBtn = document.getElementById('random-pick-btn');
+            const liveTargetNumber = document.getElementById('live-target-number');
+            const liveTargetName = document.getElementById('live-target-name');
             const lastNumberDisplay = document.getElementById('last-number-display');
+            const lastNameDisplay = document.getElementById('last-name-display');
             const winnerModal = document.getElementById('winner-modal');
             const modalWinnerNumber = document.getElementById('modal-winner-number');
+            const modalWinnerName = document.getElementById('modal-winner-name');
+            const modalWhatsappShare = document.getElementById('modal-whatsapp-share');
             const closeWinnerModalBtn = document.getElementById('close-winner-modal');
 
             const numSegments = 50;
             const segments = Array.from({ length: numSegments }, (_, i) => i + 1);
             
-            // Color palette for 50 segments
             const sliceColors = [
                 '#14532d', '#052e16', '#166534', '#15803d', '#16a34a',
                 '#1e293b', '#0f172a', '#1e3a8a', '#312e81', '#14532d'
@@ -871,7 +1182,6 @@
                     ctx.arc(centerX, centerY, radius, startAngle, endAngle);
                     ctx.closePath();
 
-                    // Alternating slice styling
                     const colorIndex = i % sliceColors.length;
                     ctx.fillStyle = (i % 2 === 0) ? sliceColors[colorIndex] : '#0b1f14';
                     ctx.fill();
@@ -903,7 +1213,7 @@
                 ctx.shadowBlur = 10;
                 ctx.stroke();
 
-                // Center Leaf Icon / Logo
+                // Center Leaf Icon
                 ctx.fillStyle = '#00ff66';
                 ctx.font = 'bold 16px "Font Awesome 6 Free"';
                 ctx.textAlign = 'center';
@@ -916,7 +1226,6 @@
 
             function getWinningSegment() {
                 const anglePerSegment = (2 * Math.PI) / numSegments;
-                // Pointer is at Top ( -Math.PI / 2 )
                 let normalizedAngle = (-Math.PI / 2 - currentAngle) % (2 * Math.PI);
                 if (normalizedAngle < 0) normalizedAngle += 2 * Math.PI;
                 const winningIndex = Math.floor(normalizedAngle / anglePerSegment);
@@ -937,29 +1246,34 @@
                 }
 
                 const anglePerSegment = (2 * Math.PI) / numSegments;
-                const fullSpins = 5 + Math.floor(Math.random() * 3); // 5 to 7 full rotations
+                const fullSpins = 5 + Math.floor(Math.random() * 3);
                 
-                // Angle to align targetSegmentIndex under top pin (-Math.PI / 2)
                 const targetAngleOffset = -Math.PI / 2 - (targetSegmentIndex + 0.5) * anglePerSegment;
                 const totalRotation = fullSpins * 2 * Math.PI + (targetAngleOffset - (currentAngle % (2 * Math.PI)));
 
-                const duration = 4500; // ms
+                const duration = 4500;
                 const startAngle = currentAngle;
                 const startTime = performance.now();
 
                 function animateSpin(currentTime) {
                     const elapsed = currentTime - startTime;
                     const progress = Math.min(elapsed / duration, 1);
-                    
-                    // Ease out cubic deceleration formula
                     const easeOut = 1 - Math.pow(1 - progress, 3);
                     currentAngle = startAngle + totalRotation * easeOut;
 
-                    // Play tick sound on segment transition
                     const currentWinner = getWinningSegment();
                     if (currentWinner !== lastSignaledSegment) {
                         playTickSound();
                         lastSignaledSegment = currentWinner;
+                        
+                        // Live HUD pointer updates
+                        const currentParticipant = participantsData.find(p => p.number === currentWinner);
+                        if (liveTargetNumber) {
+                            liveTargetNumber.textContent = `#${String(currentWinner).padStart(2, '0')}`;
+                        }
+                        if (liveTargetName && currentParticipant) {
+                            liveTargetName.textContent = currentParticipant.name;
+                        }
                     }
 
                     drawWheel();
@@ -972,17 +1286,26 @@
                         spinBtn.classList.remove('opacity-60', 'cursor-not-allowed');
 
                         const winningNumber = getWinningSegment();
-                        lastNumberDisplay.textContent = `#${winningNumber}`;
-                        modalWinnerNumber.textContent = `#${winningNumber}`;
+                        const winParticipant = participantsData.find(p => p.number === winningNumber);
+                        const formattedNum = `#${String(winningNumber).padStart(2, '0')}`;
+                        const winName = winParticipant ? winParticipant.name : 'Participante Esquejenzon';
 
-                        // Highlight number chip in grid
+                        if (lastNumberDisplay) lastNumberDisplay.textContent = formattedNum;
+                        if (lastNameDisplay) lastNameDisplay.textContent = winName;
+                        if (modalWinnerNumber) modalWinnerNumber.textContent = formattedNum;
+                        if (modalWinnerName) modalWinnerName.textContent = winName;
+
+                        if (modalWhatsappShare) {
+                            const waText = encodeURIComponent(`🎉 ¡Gran Rifa Esquejenzon! El número ganador de la ruleta es ${formattedNum} perteneciente a ${winName}. ¡Felicitaciones! 🌱🏆`);
+                            modalWhatsappShare.href = `https://api.whatsapp.com/send?text=${waText}`;
+                        }
+
                         highlightWinnerChip(winningNumber);
+                        highlightParticipantCards(winningNumber);
 
-                        // Sound & Confetti
                         playFanfareSound();
                         triggerConfetti();
 
-                        // Show Winner Modal
                         winnerModal.classList.remove('hidden');
                     }
                 }
@@ -994,44 +1317,70 @@
             randomPickBtn.addEventListener('click', () => spinRoulette());
             canvas.addEventListener('click', () => spinRoulette());
 
-            closeWinnerModalBtn.addEventListener('click', () => {
-                winnerModal.classList.add('hidden');
-            });
-            winnerModal.addEventListener('click', (e) => {
-                if (e.target === winnerModal) winnerModal.classList.add('hidden');
-            });
+            if (closeWinnerModalBtn) {
+                closeWinnerModalBtn.addEventListener('click', () => {
+                    winnerModal.classList.add('hidden');
+                });
+            }
+            if (winnerModal) {
+                winnerModal.addEventListener('click', (e) => {
+                    if (e.target === winnerModal) winnerModal.classList.add('hidden');
+                });
+            }
 
-            // --- 4. Interactive 1-50 Numbers Grid ---
+            // --- 4. Interactive 1-50 Numbers Grid & Participant Panels ---
             const numbersGrid = document.getElementById('numbers-grid');
             const selectedCount = document.getElementById('selected-count');
             const clearSelectedBtn = document.getElementById('clear-selected-btn');
             const selectedNumbers = new Set();
+            const gridPreviewBox = document.getElementById('grid-preview-box');
 
-            for (let i = 1; i <= 50; i++) {
-                const chip = document.createElement('button');
-                chip.id = `chip-${i}`;
-                chip.className = 'ticket-chip w-full aspect-square rounded-lg bg-gray-900 border border-cannabis-500/20 text-gray-300 font-bold text-xs sm:text-sm flex items-center justify-center hover:border-cannabis-400 hover:text-white transition-all';
-                chip.textContent = i;
-                
-                chip.addEventListener('click', () => {
-                    if (selectedNumbers.has(i)) {
-                        selectedNumbers.delete(i);
-                        chip.classList.remove('selected');
-                    } else {
-                        selectedNumbers.add(i);
-                        chip.classList.add('selected');
-                    }
-                    selectedCount.textContent = selectedNumbers.size;
-                });
+            // Render 50 chips in grid
+            if (numbersGrid) {
+                for (let i = 1; i <= 50; i++) {
+                    const chip = document.createElement('button');
+                    chip.id = `chip-${i}`;
+                    const p = participantsData.find(x => x.number === i);
+                    const pName = p ? p.name : '';
+                    chip.className = 'ticket-chip w-full aspect-square rounded-lg bg-gray-900 border border-cannabis-500/20 text-gray-300 font-bold text-xs sm:text-sm flex items-center justify-center hover:border-cannabis-400 hover:text-white transition-all relative';
+                    chip.textContent = i;
+                    chip.title = `#${String(i).padStart(2, '0')} - ${pName}`;
+                    
+                    chip.addEventListener('mouseenter', () => {
+                        if (gridPreviewBox) {
+                            gridPreviewBox.innerHTML = `
+                                <span class="text-gray-300">#${String(i).padStart(2, '0')}</span>
+                                <span class="name-light-flash font-bold text-xs">${pName}</span>
+                            `;
+                        }
+                    });
 
-                numbersGrid.appendChild(chip);
+                    chip.addEventListener('click', () => {
+                        if (selectedNumbers.has(i)) {
+                            selectedNumbers.delete(i);
+                            chip.classList.remove('selected');
+                        } else {
+                            selectedNumbers.add(i);
+                            chip.classList.add('selected');
+                        }
+                        if (selectedCount) selectedCount.textContent = selectedNumbers.size;
+
+                        if (liveTargetNumber) liveTargetNumber.textContent = `#${String(i).padStart(2, '0')}`;
+                        if (liveTargetName) liveTargetName.textContent = pName;
+                        highlightParticipantCards(i);
+                    });
+
+                    numbersGrid.appendChild(chip);
+                }
             }
 
-            clearSelectedBtn.addEventListener('click', () => {
-                selectedNumbers.clear();
-                selectedCount.textContent = 0;
-                document.querySelectorAll('.ticket-chip').forEach(c => c.classList.remove('selected'));
-            });
+            if (clearSelectedBtn) {
+                clearSelectedBtn.addEventListener('click', () => {
+                    selectedNumbers.clear();
+                    if (selectedCount) selectedCount.textContent = 0;
+                    document.querySelectorAll('.ticket-chip').forEach(c => c.classList.remove('selected'));
+                });
+            }
 
             function highlightWinnerChip(num) {
                 document.querySelectorAll('.ticket-chip').forEach(c => c.classList.remove('winner-highlight'));
@@ -1041,6 +1390,206 @@
                     chip.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 }
             }
+
+            function highlightParticipantCards(num) {
+                document.querySelectorAll('.participant-item, .grid-participant-card').forEach(el => {
+                    el.classList.remove('ring-2', 'ring-cannabis-neon', 'bg-cannabis-950/80', 'active-winner');
+                });
+                const sideItem = document.getElementById(`side-item-${num}`);
+                if (sideItem) {
+                    sideItem.classList.add('ring-2', 'ring-cannabis-neon', 'bg-cannabis-950/80', 'active-winner');
+                    sideItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+                const mainCard = document.getElementById(`main-card-${num}`);
+                if (mainCard) {
+                    mainCard.classList.add('ring-2', 'ring-cannabis-neon', 'bg-cannabis-950/80', 'active-winner');
+                }
+            }
+
+            // Render Side List of Participants
+            const sideListView = document.getElementById('side-list-view');
+            const sideSearchInput = document.getElementById('side-search-input');
+            const sideListCount = document.getElementById('side-list-count');
+
+            function renderSideList(query = '') {
+                if (!sideListView) return;
+                sideListView.innerHTML = '';
+                const q = query.toLowerCase().trim();
+
+                const filtered = participantsData.filter(p => {
+                    const numStr = String(p.number).padStart(2, '0');
+                    return p.name.toLowerCase().includes(q) || numStr.includes(q) || String(p.number).includes(q);
+                });
+
+                if (sideListCount) {
+                    sideListCount.textContent = `${filtered.length} número${filtered.length === 1 ? '' : 's'} activo${filtered.length === 1 ? '' : 's'}`;
+                }
+
+                if (filtered.length === 0) {
+                    sideListView.innerHTML = `<div class="p-4 text-center text-xs text-gray-500">No se encontraron participantes.</div>`;
+                    return;
+                }
+
+                filtered.forEach(p => {
+                    const item = document.createElement('div');
+                    const count = participantCounts[p.name] || 1;
+                    item.id = `side-item-${p.number}`;
+                    item.className = 'participant-item participant-card-sheen p-2.5 rounded-xl bg-black/60 hover:bg-black/80 border border-cannabis-500/20 hover:border-cannabis-400 transition-all flex items-center justify-between cursor-pointer group';
+                    
+                    item.innerHTML = `
+                        <div class="flex items-center gap-2.5 overflow-hidden">
+                            <span class="w-8 h-8 rounded-lg bg-gradient-to-br from-cannabis-900 to-black border border-cannabis-500/40 text-cannabis-neon font-mono font-bold text-xs flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform shadow-sm">
+                                #${String(p.number).padStart(2, '0')}
+                            </span>
+                            <div class="truncate">
+                                <span class="name-light-flash text-xs sm:text-sm font-bold block truncate">${p.name}</span>
+                                <span class="text-[10px] text-gray-400 font-mono">Ticket #${String(p.number).padStart(2, '0')}</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-1.5 shrink-0 ml-2">
+                            ${count > 1 ? `<span class="text-[9px] bg-cannabis-950 text-cannabis-300 px-1.5 py-0.5 rounded border border-cannabis-500/40 font-mono">x${count}</span>` : ''}
+                            <button title="Girar para ${p.name}" class="spin-side-btn w-7 h-7 rounded-lg bg-cannabis-500/20 hover:bg-cannabis-400 text-cannabis-400 hover:text-black flex items-center justify-center text-xs transition-colors">
+                                <i class="fa-solid fa-play text-[10px]"></i>
+                            </button>
+                        </div>
+                    `;
+
+                    item.addEventListener('click', (e) => {
+                        if (e.target.closest('.spin-side-btn')) {
+                            spinRoulette(p.number);
+                        } else {
+                            highlightWinnerChip(p.number);
+                            highlightParticipantCards(p.number);
+                            if (liveTargetNumber) liveTargetNumber.textContent = `#${String(p.number).padStart(2, '0')}`;
+                            if (liveTargetName) liveTargetName.textContent = p.name;
+                        }
+                    });
+
+                    sideListView.appendChild(item);
+                });
+            }
+
+            if (sideSearchInput) {
+                sideSearchInput.addEventListener('input', (e) => {
+                    renderSideList(e.target.value);
+                });
+            }
+            renderSideList();
+
+            // Tabs for Side View (List vs Grid)
+            const tabListBtn = document.getElementById('tab-list-btn');
+            const tabGridBtn = document.getElementById('tab-grid-btn');
+            const sideGridView = document.getElementById('side-grid-view');
+
+            if (tabListBtn && tabGridBtn && sideListView && sideGridView) {
+                tabListBtn.addEventListener('click', () => {
+                    sideListView.classList.remove('hidden');
+                    sideGridView.classList.add('hidden');
+                    tabListBtn.className = 'flex-1 py-1.5 px-3 rounded-lg text-xs font-bold transition-all bg-cannabis-500 text-black shadow-md flex items-center justify-center gap-1.5';
+                    tabGridBtn.className = 'flex-1 py-1.5 px-3 rounded-lg text-xs font-semibold text-gray-300 hover:text-white transition-all flex items-center justify-center gap-1.5';
+                });
+                tabGridBtn.addEventListener('click', () => {
+                    sideListView.classList.add('hidden');
+                    sideGridView.classList.remove('hidden');
+                    tabGridBtn.className = 'flex-1 py-1.5 px-3 rounded-lg text-xs font-bold transition-all bg-cannabis-500 text-black shadow-md flex items-center justify-center gap-1.5';
+                    tabListBtn.className = 'flex-1 py-1.5 px-3 rounded-lg text-xs font-semibold text-gray-300 hover:text-white transition-all flex items-center justify-center gap-1.5';
+                });
+            }
+
+            // Render Full Main Grid of Participants
+            const participantsMainGrid = document.getElementById('participants-main-grid');
+            const mainSearchInput = document.getElementById('main-search-input');
+            const mainSearchCount = document.getElementById('main-search-count');
+            const filterAllBtn = document.getElementById('filter-all-btn');
+            const filterMultiBtn = document.getElementById('filter-multi-btn');
+            let currentMainFilter = 'all';
+
+            function renderMainGrid(query = '') {
+                if (!participantsMainGrid) return;
+                participantsMainGrid.innerHTML = '';
+                const q = query.toLowerCase().trim();
+
+                const filtered = participantsData.filter(p => {
+                    const numStr = String(p.number).padStart(2, '0');
+                    const matchesQuery = p.name.toLowerCase().includes(q) || numStr.includes(q) || String(p.number).includes(q);
+                    const count = participantCounts[p.name] || 1;
+                    const matchesType = currentMainFilter === 'multi' ? (count > 1) : true;
+                    return matchesQuery && matchesType;
+                });
+
+                if (mainSearchCount) {
+                    mainSearchCount.textContent = `${filtered.length} número${filtered.length === 1 ? '' : 's'}`;
+                }
+
+                if (filtered.length === 0) {
+                    participantsMainGrid.innerHTML = `
+                        <div class="col-span-full py-12 text-center glass-card rounded-2xl border border-cannabis-500/20">
+                            <i class="fa-solid fa-user-slash text-3xl text-cannabis-400/40 mb-2 block"></i>
+                            <p class="text-gray-400 text-sm">No se encontraron participantes que coincidan con la búsqueda.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                filtered.forEach(p => {
+                    const card = document.createElement('div');
+                    const count = participantCounts[p.name] || 1;
+                    card.id = `main-card-${p.number}`;
+                    card.className = 'grid-participant-card participant-card-sheen glass-card p-3.5 sm:p-4 rounded-2xl border border-cannabis-500/25 hover:border-cannabis-400 transition-all flex items-center justify-between group cursor-pointer';
+
+                    card.innerHTML = `
+                        <div class="flex items-center gap-3 overflow-hidden">
+                            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-cannabis-900 via-black to-cannabis-950 border border-cannabis-500/40 text-cannabis-neon font-heading font-black text-sm flex items-center justify-center shrink-0 group-hover:scale-105 group-hover:border-cannabis-400 transition-all shadow-md shadow-cannabis-900/50">
+                                #${String(p.number).padStart(2, '0')}
+                            </div>
+                            <div class="truncate">
+                                <h4 class="name-light-flash text-sm sm:text-base font-bold truncate block">${p.name}</h4>
+                                <div class="flex items-center gap-1.5 mt-0.5">
+                                    <span class="text-[10px] text-gray-400 font-mono tracking-tight">Rifa Esquejenzon</span>
+                                    ${count > 1 ? `<span class="text-[9px] bg-cannabis-950 text-cannabis-300 px-1.5 py-0.2 rounded border border-cannabis-500/40 font-mono">x${count} tickets</span>` : ''}
+                                </div>
+                            </div>
+                        </div>
+                        <button title="Girar ruleta para ${p.name}" class="shrink-0 ml-2 w-8 h-8 rounded-xl bg-cannabis-500/15 hover:bg-cannabis-400 text-cannabis-400 hover:text-black flex items-center justify-center transition-all group-hover:scale-110">
+                            <i class="fa-solid fa-play text-xs"></i>
+                        </button>
+                    `;
+
+                    card.addEventListener('click', () => {
+                        const rouletteSection = document.getElementById('rifa-ruleta');
+                        if (rouletteSection) {
+                            rouletteSection.scrollIntoView({ behavior: 'smooth' });
+                        }
+                        setTimeout(() => {
+                            spinRoulette(p.number);
+                        }, 500);
+                    });
+
+                    participantsMainGrid.appendChild(card);
+                });
+            }
+
+            if (mainSearchInput) {
+                mainSearchInput.addEventListener('input', (e) => {
+                    renderMainGrid(e.target.value);
+                });
+            }
+
+            if (filterAllBtn && filterMultiBtn) {
+                filterAllBtn.addEventListener('click', () => {
+                    currentMainFilter = 'all';
+                    filterAllBtn.className = 'px-4 py-2 rounded-xl text-xs font-bold bg-cannabis-500 text-black transition-all shrink-0';
+                    filterMultiBtn.className = 'px-4 py-2 rounded-xl text-xs font-semibold bg-gray-800 hover:bg-gray-700 text-cannabis-300 border border-cannabis-500/30 transition-all shrink-0';
+                    renderMainGrid(mainSearchInput ? mainSearchInput.value : '');
+                });
+                filterMultiBtn.addEventListener('click', () => {
+                    currentMainFilter = 'multi';
+                    filterMultiBtn.className = 'px-4 py-2 rounded-xl text-xs font-bold bg-cannabis-500 text-black transition-all shrink-0';
+                    filterAllBtn.className = 'px-4 py-2 rounded-xl text-xs font-semibold bg-gray-800 hover:bg-gray-700 text-cannabis-300 border border-cannabis-500/30 transition-all shrink-0';
+                    renderMainGrid(mainSearchInput ? mainSearchInput.value : '');
+                });
+            }
+            renderMainGrid();
 
             // --- 5. Transparent Glass Floating Bubble Carousel ---
             const carouselTrack = document.getElementById('carousel-track');
